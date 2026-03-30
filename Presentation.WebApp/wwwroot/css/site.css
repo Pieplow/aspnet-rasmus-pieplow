@@ -1,0 +1,54 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+:root {
+    --font-default: "Dm Sans" sans-serif;
+    --font-heading: "Poppin", sans-serif;
+    --font-fa-regular: "Font Awesome 7 Pro Regular";
+    --font-fa-solid: "Font Awesome 7 Pro Solid";
+    --dark-color: #27252F;
+    --grey-color: #6F6F6F;
+    --light-color: #F7F7F7;
+    --white-color: #FFFFF;
+    --prime-color: #D6BE31;
+    --body-bg-color: var(--light-color);
+    --body-text-color: var(--dark-color);
+    --header-bg-color: var(--dark-color);
+    --header-text-color: var(--light-color);
+    --footer-bg-color: var(--dark-color);
+    --footer-text-color: var(--light-color);
+}
+
+body {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: var(--font-default);
+    color: var(--body-text-color);
+    background-color: var(--body-bg-color);
+}
+
+.app-layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100dvh;
+    padding: 1rem;
+}
+
+header {
+    background-color: var(--header-bg-color);
+    color: var(--header-text-color);
+    border-radius: 1.25rem;
+    padding: 1rem;
+}
+
+footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    border-radius: 1.25rem;
+    padding: 1rem;
+}
