@@ -19,12 +19,19 @@
 </head>
 <body>
     <div class="app-layout">
-         <header>header</header>
+         <header>
+            <partial name="Partials/_HeaderSection" />
+
+            @if (IsSectionDefined("Hero"))
+                @await RenderSectionAsync("Hero")
+         </header>
         <main>
             @RenderBody()
-            main
+            
         </main>
-        <footer>footer</footer>
+        <footer>
+            <partial name="Partials/_FooterSection" />
+        </footer>
     </div>
     
    
