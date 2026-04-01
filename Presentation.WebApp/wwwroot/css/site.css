@@ -13,13 +13,17 @@
     --grey-color: #6F6F6F;
     --light-color: #F7F7F7;
     --white-color: #FFFFF;
-    --prime-color: #D6BE31;
+    --primary-color: #D6BE31;
     --body-bg-color: var(--light-color);
     --body-text-color: var(--dark-color);
     --header-bg-color: var(--dark-color);
     --header-text-color: var(--light-color);
     --footer-bg-color: var(--dark-color);
     --footer-text-color: var(--light-color);
+    --menu-text-color: var(--white-color);
+    --menu-item-text-color: var(--white-color);
+    --menu-item-text-hover-color: var(--primary-color);
+    --menu-item-text-active-color: var(--primary-color)
 }
 
 body {
@@ -51,4 +55,87 @@ footer {
     color: var(--footer-text-color);
     border-radius: 1.25rem;
     padding: 1rem;
+}
+
+/*MENU*/
+.menu {
+    color: var(--menu-text-color);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+
+    .menu-item {
+        color: var(--menu-text-color);
+        font-size: 1rem;
+        font-weight: 600;
+
+
+        a {
+            color: var(--menu-text-color);
+            text-decoration: none;
+
+
+            &:hover {
+                color: var(--menu-item-text-hover-color);
+                text-decoration: underline;
+            }
+
+            &.active {
+                color: var(--menu-item-text-active-color);
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+/*Header Section*/
+.header-section {
+    display: grid;
+    align-items: center;
+
+    @media (width >= 768px) {
+    }
+
+    @media (width >= 1200px) {
+    }
+
+    @media (width >= 1400px) {
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+
+    .logotype {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .main-menu {
+        display: flex;
+        justify-content: center;
+
+        @media (width >= 768px) {
+        }
+
+        @media (width >= 1200px) {
+        }
+
+        @media (width >= 1400px) {
+            display: flex;
+        }
+    }
+
+    .account-menu {
+        display: flex;
+        justify-content: flex-end;
+
+        @media (width >= 768px) {
+        }
+
+        @media (width >= 1200px) {
+        }
+
+        @media (width >= 1400px) {
+        }
+    }
 }
