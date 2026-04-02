@@ -2,7 +2,7 @@
 
 namespace Presentation.WebApp.Controllers
 {
-    public class MembershipController : Controller
+    public class MembershipsController : Controller
     {
         public IActionResult Index()
         {
