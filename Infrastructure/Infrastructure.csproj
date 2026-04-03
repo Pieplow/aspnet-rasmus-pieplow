@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistance\Configurations\" />
-    <Folder Include="Persistance\Enteties\" />
+    <Folder Include="Persistence\Configurations\" />
   </ItemGroup>
 
   <ItemGroup>

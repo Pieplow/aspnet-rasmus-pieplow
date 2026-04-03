@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Aggregations\" />
+    <Folder Include="Enteties\" />
     <Folder Include="Shared\" />
     <Folder Include="Abstractions\" />
   </ItemGroup>
