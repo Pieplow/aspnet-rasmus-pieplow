@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Interfaces
+namespace Domain.Abstractions.Repositories
 {
     internal interface IBookingRepository
     {

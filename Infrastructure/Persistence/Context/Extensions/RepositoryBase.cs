@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Abstractions.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Context.Extensions
 {

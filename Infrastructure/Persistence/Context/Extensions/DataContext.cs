@@ -1,16 +1,15 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Infrastructure.Persistence.Enteties;
 
-namespace Infrastructure.Persistance.Context.Extensions
+namespace Infrastructure.Persistence.Context.Extensions;
+
+public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
-    public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
-        }
-
-       
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
     }
+
+    public DbSet<MembershipEntity> Memberships => Set<MembershipEntity>();
+
 }

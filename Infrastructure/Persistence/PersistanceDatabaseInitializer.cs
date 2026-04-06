@@ -1,4 +1,4 @@
-﻿using Infrastructure.Persistance.Context.Extensions;
+﻿using Infrastructure.Persistence.Context.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

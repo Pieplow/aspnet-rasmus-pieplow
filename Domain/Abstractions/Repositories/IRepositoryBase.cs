@@ -1,4 +1,4 @@
-﻿namespace Domain.Persistence.Context.Extensions
+﻿namespace Domain.Abstractions.Repositories
 {
     public interface IRepositoryBase<TDomainModel, TId>
     {

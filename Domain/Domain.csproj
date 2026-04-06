@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aggregations\" />
     <Folder Include="Shared\" />
-    <Folder Include="Abstractions\" />
   </ItemGroup>
 
 </Project>
