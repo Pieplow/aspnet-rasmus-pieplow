@@ -12,8 +12,8 @@
         MonthlyClasses = monthlyClasses;
     }
 
-    public string Id { get; }
-            public string Title { get; private set; }
+            public string Id { get; }
+            public string Title { get; set; }
 
             public string Description { get; set; }
 
@@ -40,7 +40,7 @@
                 public static Membership Create(string title, string description, List<string> benefits, decimal price = 0, int MonthlyClasses =0) => 
                     new(Guid.NewGuid().ToString(), title, description, benefits, price, MonthlyClasses);
 
-                public static Membership Rehydrate(string id, string title, string description, List<string> benefits, decimal price = 0, int MonthlyClasses = 0) =>
+                public static Membership Create(string id, string title, string description, List<string> benefits, decimal price = 0, int MonthlyClasses = 0) =>
                     new(id, title, description, benefits, price, MonthlyClasses);
 }   
 

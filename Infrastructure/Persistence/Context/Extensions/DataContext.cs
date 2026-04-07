@@ -11,5 +11,5 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
     }
 
     public DbSet<MembershipEntity> Memberships => Set<MembershipEntity>();
-
+    public DbSet<MembershipEntity> MembershipBenefits => Set<MembershipEntity>();
 }
