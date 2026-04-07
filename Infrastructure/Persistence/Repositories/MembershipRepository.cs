@@ -6,27 +6,45 @@ using Infrastructure.Persistence.Enteties;
 namespace Infrastructure.Persistence.Repositories;
 
 public sealed class MembershipRepository(DataContext context)
-    : RepositoryBase<Memberships, string, MembershipEntity, DataContext>(context)
+    : RepositoryBase<Membership, string, MembershipEntity, DataContext>(context)
     , IMembershipRepository
 {
     //configuration for the repository, not implemented yet//
-    protected override void ApplyPropertyUpdated(MembershipEntity entity, Memberships model)
+    protected override void ApplyPropertyUpdated(MembershipEntity entity, Membership model)
     {
         throw new NotImplementedException();
     }
 
-    protected override string GetId(Memberships model)
+    protected override string GetId(Membership model)
     {
-        throw new NotImplementedException();
+        return model.Id;
     }
 
-    protected override Memberships ToDomainModel(MembershipEntity entity)
+    protected override Membership ToDomainModel(MembershipEntity entity)
     {
-        throw new NotImplementedException();
+        var model = Membership.Create(
+            entity.Id,
+            entity.Title,
+            entity.Description,
+            entity.Benefits,
+            entity.Price,
+            entity.MonthlyClasses
+        );
+
+        return model;
     }
 
-    protected override MembershipEntity ToEntity(Memberships model)
+    protected override MembershipEntity ToEntity(Membership model)
     {
-        throw new NotImplementedException();
+        var entity = new MembershipEntity
+        {
+            Id = model.Id,
+            Title = model.Title,
+            Description = model.Description,
+            Benefits = model.Benefits,
+            Price = model.Price,
+            MonthlyClasses = model.MonthlyClasses
+        };
+        return entity;
     }
 }

@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Memberships;
+using Microsoft.AspNetCore.Mvc;
+using Presentation.WebApp.Models.Memberships;
 
-namespace Presentation.WebApp.Controllers
+namespace Presentation.WebApp.Controllers;
+
+public class MembershipsController(IMembershipService service) : Controller
 {
-    public class MembershipsController : Controller
+    public async Task<IActionResult> Index()
     {
-        public IActionResult Index()
+        var memberships = await service.GetMembershipsAsync();
+
+        var viewModel = new MembershipViewModel()
         {
-            return View();
-        }
+            Memberships = memberships
+        };
+
+        return View(viewModel);
     }
 }
+

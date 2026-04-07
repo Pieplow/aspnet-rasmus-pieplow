@@ -1,5 +1,7 @@
-﻿namespace Domain.Abstractions.Repositories;
+﻿using Domain.Aggregates.Memberships;
 
-public interface IMembershipRepository
+namespace Domain.Abstractions.Repositories;
+
+public interface IMembershipRepository : IRepositoryBase<Membership, String>
 {
 }
