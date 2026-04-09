@@ -24,17 +24,23 @@ internal class MembershipBenefitConfiguration : IEntityTypeConfiguration<Members
 {
     public void Configure(EntityTypeBuilder<MembershipBenefitEntity> builder)
     {
-        builder.ToTable("Memberships");
+        builder.ToTable("MembershipBenefits");
 
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.Id)
-            .IsRequired();
         builder.Property(x => x.MembershipId)
             .IsRequired();
 
+        builder.Property(x => x.Benefit)
+            .IsRequired()
+            .HasMaxLength(200);
+
+        builder.HasIndex(x => x.MembershipId);
+
         builder.HasOne(x => x.Membership)
             .WithMany(x => x.Benefits)
-            .HasForeignKey(x => x.MembershipId);
+            .HasForeignKey(x => x.MembershipId)
+            .OnDelete(DeleteBehavior.Cascade);
+
     }
 }

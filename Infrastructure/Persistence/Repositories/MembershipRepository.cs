@@ -22,11 +22,17 @@ public sealed class MembershipRepository(DataContext context)
 
     protected override Membership ToDomainModel(MembershipEntity entity)
     {
+
+        var benefits = new List<string>();
+        foreach (var benefit in entity.Benefits)
+            benefits.Add(benefit.Benefit);
+
+
         var model = Membership.Create(
             entity.Id,
             entity.Title,
             entity.Description,
-            entity.Benefits,
+            benefits,
             entity.Price,
             entity.MonthlyClasses
         );
@@ -41,7 +47,6 @@ public sealed class MembershipRepository(DataContext context)
             Id = model.Id,
             Title = model.Title,
             Description = model.Description,
-            Benefits = model.Benefits,
             Price = model.Price,
             MonthlyClasses = model.MonthlyClasses
         };
