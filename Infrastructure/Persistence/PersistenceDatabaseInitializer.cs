@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Infrastructure.Persistance
+namespace Infrastructure.Persistence
 {
-    public static class PersistanceDatabaseInitializer
+    public static class PersistenceDatabaseInitializer
     {
         public static async Task Initialize(IServiceProvider sp, IHostEnvironment env, CancellationToken ct = default)
         {

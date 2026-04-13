@@ -1,6 +1,6 @@
 using Application.Extensions;
 using Infrastructure.Extensions;
-using Infrastructure.Persistance;
+using Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +17,13 @@ builder.Services.AddApplication(builder.Configuration, builder.Environment);
 
 var app = builder.Build();
 
-await PersistanceDatabaseInitializer.Initialize(app.Services, app.Environment);
+await PersistenceDatabaseInitializer.Initialize(app.Services, app.Environment);
 app.UseStaticFiles();
 app.UseHsts();
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
