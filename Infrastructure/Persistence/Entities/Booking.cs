@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Persistence.Enteties;
+﻿namespace Infrastructure.Persistence.Entities;
 public class Booking
 {
     public Guid UserId { get; private set; }

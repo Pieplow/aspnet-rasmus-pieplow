@@ -1,4 +1,5 @@
-﻿using Infrastructure.Persistence.Enteties;
+﻿
+using Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,9 +13,27 @@ internal class MembershipConfiguration : IEntityTypeConfiguration<MembershipEnti
 
         builder.HasKey(x => x.Id);
 
+        builder.Property(x => x.Id)
+            .IsRequired()
+            .HasMaxLength(450);
+
+        builder.Property(x => x.UserId)
+            .IsRequired();
+
+        builder.HasIndex(x => x.UserId);
+
         builder.Property(x => x.Title)
             .IsRequired()
             .HasMaxLength(100);
+
+        builder.Property(x => x.Description)
+            .IsRequired();
+
+        builder.Property(x => x.Price)
+            .HasPrecision(18, 2);
+
+        builder.Property(x => x.MonthlyClasses)
+            .IsRequired();
 
 
     }
@@ -24,6 +43,7 @@ internal class MembershipBenefitConfiguration : IEntityTypeConfiguration<Members
 {
     public void Configure(EntityTypeBuilder<MembershipBenefitEntity> builder)
     {
+         
         builder.ToTable("MembershipBenefits");
 
         builder.HasKey(x => x.Id);
@@ -41,6 +61,5 @@ internal class MembershipBenefitConfiguration : IEntityTypeConfiguration<Members
             .WithMany(x => x.Benefits)
             .HasForeignKey(x => x.MembershipId)
             .OnDelete(DeleteBehavior.Cascade);
-
     }
 }

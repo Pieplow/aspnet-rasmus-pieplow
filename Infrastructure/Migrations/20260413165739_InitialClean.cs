@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialClean : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,10 +54,11 @@ namespace Infrastructure.Migrations
                 name: "Memberships",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     MonthlyClasses = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -233,6 +234,11 @@ namespace Infrastructure.Migrations
                 name: "IX_MembershipBenefits_MembershipId",
                 table: "MembershipBenefits",
                 column: "MembershipId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Memberships_UserId",
+                table: "Memberships",
+                column: "UserId");
         }
 
         /// <inheritdoc />

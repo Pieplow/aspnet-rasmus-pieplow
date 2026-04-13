@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260413130335_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260413165739_InitialClean")]
+    partial class InitialClean
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,7 +90,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Persistence.Enteties.MembershipBenefitEntity", b =>
+            modelBuilder.Entity("Infrastructure.Persistence.Entities.MembershipBenefitEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -111,9 +111,10 @@ namespace Infrastructure.Migrations
                     b.ToTable("MembershipBenefits", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Persistence.Enteties.MembershipEntity", b =>
+            modelBuilder.Entity("Infrastructure.Persistence.Entities.MembershipEntity", b =>
                 {
                     b.Property<string>("Id")
+                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
@@ -124,6 +125,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Title")
@@ -131,7 +133,13 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Memberships", (string)null);
                 });
@@ -269,9 +277,9 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Persistence.Enteties.MembershipBenefitEntity", b =>
+            modelBuilder.Entity("Infrastructure.Persistence.Entities.MembershipBenefitEntity", b =>
                 {
-                    b.HasOne("Infrastructure.Persistence.Enteties.MembershipEntity", "Membership")
+                    b.HasOne("Infrastructure.Persistence.Entities.MembershipEntity", "Membership")
                         .WithMany("Benefits")
                         .HasForeignKey("MembershipId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -331,7 +339,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Infrastructure.Persistence.Enteties.MembershipEntity", b =>
+            modelBuilder.Entity("Infrastructure.Persistence.Entities.MembershipEntity", b =>
                 {
                     b.Navigation("Benefits");
                 });

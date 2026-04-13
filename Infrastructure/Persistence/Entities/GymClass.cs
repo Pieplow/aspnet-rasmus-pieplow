@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Persistence.Enteties
+﻿namespace Infrastructure.Persistence.Entities
 {
     internal class GymClass
     {

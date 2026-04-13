@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Identity;
-using Infrastructure.Persistence.Enteties;
+using Infrastructure.Persistence.Entities;
 
 namespace Infrastructure.Persistence.Context.Extensions;
 
