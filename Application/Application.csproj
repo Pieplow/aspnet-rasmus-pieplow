@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Memberships\Inputs\" />
+    <Folder Include="Memberships\Commands\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
