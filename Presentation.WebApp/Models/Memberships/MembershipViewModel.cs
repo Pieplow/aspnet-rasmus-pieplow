@@ -1,8 +1,14 @@
-﻿using Domain.Aggregates.Memberships;
+﻿namespace Presentation.WebApp.ViewModels;
 
-namespace Presentation.WebApp.Models.Memberships;
+
 public class MembershipViewModel
 {
-    public IEnumerable<Membership> Memberships { get; set; } = [];       
-}
+    // Listan med medlemskap från databasen
+    public IEnumerable<Application.Memberships.Responses.MembershipResponse> Memberships { get; set; } = [];
 
+    // Dynamiska fält för CTA-boxen
+    public string CtaTitle { get; set; } = "Get Your Membership";
+    public string CtaDescription { get; set; } = "Our memberships give you access to all equipment, personal training.";
+    public string CtaPhoneNumber { get; set; } = "(+46) 8 410 521 00";
+    public string CtaButtonText { get; set; } = "Call Us Today";
+}

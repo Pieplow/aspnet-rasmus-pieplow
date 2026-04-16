@@ -1,24 +1,36 @@
-﻿<section class="header-section">    
+﻿<section class="header-section">
     <div class="logotype">
-        <a href="/"><img src="~/images/logotype.png" alt="CoreFtiness Club" /> </a>
-     </div>
-<nav class="main-menu">
-    <ul class="menu">
+        <a asp-controller="Home" asp-action="Index">
+            <img src="~/images/logotype.png" alt="CoreFitness Club" />
+        </a>
+    </div>
+
+    <nav class="main-menu">
+        <ul class="menu">
             <li class="menu-item">
-                <a asp-controller="FitnessCenters" asp-action="Index">Fitness Centers</a>
+                <a asp-controller="Home" asp-action="Index" fragment="fitness-centers">Fitness Centers</a>
             </li>
             <li class="menu-item">
                 <a asp-controller="Memberships" asp-action="Index">Memberships</a>
             </li>
             <li class="menu-item">
-                <a asp-controller="Training" asp-action="Index">Training</a>
+                <a asp-controller="Home" asp-action="Index" fragment="training">Training</a>
             </li>
             <li class="menu-item">
-                <a asp-controller="Store" asp-action="Index">Store</a>
+                <a asp-controller="Home" asp-action="Index" fragment="store">Store</a>
             </li>
-    </ul>
-</nav>
-<nav class="account-menu">
-    right
-</nav>
+        </ul>
+    </nav>
+
+    <nav class="account-menu">
+        <ul class="menu">
+            <li class="menu-item">
+                <a class="menu-item-link" href="#">Become Member</a>
+            </li>
+            <li class="menu-item">
+                @* Här använder vi klassen 'btn accent' från din CSS *@
+                <a class="btn accent" asp-controller="Auth" asp-action="SignIn">Sign In</a>
+            </li>
+        </ul>
+    </nav>
 </section>

@@ -1,16 +1,30 @@
 ﻿using Application.Memberships;
 using Application.Memberships.Commands;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.WebApp.ViewModels; // Se till att denna using finns
 
 namespace Presentation.WebApp.Controllers;
 
 public class MembershipsController(IMembershipService membershipService) : Controller
 {
+    // GET: /Memberships
     public async Task<IActionResult> Index(CancellationToken ct)
     {
-        // Hämta DTOs från Application
+        // Hämta listan från din Application Service
         var memberships = await membershipService.GetMembershipsAsync(ct);
-        return View(memberships);
+
+        // Skapar ViewModel och fyll den med data (inklusive CTA:n)
+        var viewModel = new MembershipViewModel
+        {
+            Memberships = memberships,
+            CtaTitle = "Get Your Membership",
+            CtaDescription = "Our memberships give you access to all equipment, personal training.",
+            CtaPhoneNumber = "(+46) 8 410 521 00",
+            CtaButtonText = "Call Us Today"
+        };
+
+        //  Skicka ViewModel till vyn istället för bara listan
+        return View(viewModel);
     }
 
     [HttpPost]
@@ -23,9 +37,8 @@ public class MembershipsController(IMembershipService membershipService) : Contr
             await membershipService.CreateMembershipAsync(command, ct);
             return RedirectToAction(nameof(Index));
         }
-        catch (ArgumentException ex)
+        catch (Exception ex) // Tips: Fånga även dina egna DomainExceptions här sen
         {
-            // Fångar valideringsfelen från din Membership-entitets Required/CheckPriceValue
             ModelState.AddModelError("", ex.Message);
             return View(command);
         }
