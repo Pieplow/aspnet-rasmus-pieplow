@@ -1,15 +1,68 @@
-﻿using Domain.Abstractions.Repositories;
+﻿using Application.Memberships.Commands;
+using Application.Memberships.Responses;
+using Domain.Abstractions.Repositories;
 using Domain.Aggregates.Memberships;
 
 namespace Application.Memberships;
 
-
 public sealed class MembershipService(IMembershipRepository repo) : IMembershipService
 {
-    public async Task<IReadOnlyList<Membership>> GetMembershipsAsync(CancellationToken ct = default)
+    // READ
+    public async Task<IReadOnlyList<MembershipResponse>> GetMembershipsAsync(CancellationToken ct = default)
     {
         var memberships = await repo.GetAllAsync(ct);
-        return memberships; 
+
+        return memberships.Select(m => new MembershipResponse(
+            m.Id,
+            m.Title,
+            m.Description,
+            m.Benefits,
+            m.Price,
+            m.MonthlyClasses)).ToList();
+    }
+
+    // CREATE
+    public async Task CreateMembershipAsync(CreateMembershipCommand command, CancellationToken ct = default)
+    {
+        var membership = Membership.Create(
+            command.Title,
+            command.Description,
+            command.Benefits,
+            command.Price,
+            command.MonthlyClasses
+        );
+
+        await repo.AddAsync(membership, ct);
+    }
+
+    // UPDATE
+    public async Task UpdateMembershipAsync(UpdateMembershipCommand command, CancellationToken ct = default)
+    {
+        var membership = await repo.GetByIdAsync(command.Id, ct);
+
+        if (membership is null)
+            throw new KeyNotFoundException($"Membership with ID {command.Id} was not found.");
+
+       
+        membership.Update(
+            command.Title,
+            command.Description,
+            command.Benefits,
+            command.Price,
+            command.MonthlyClasses
+        );
+
+        await repo.UpdateAsync(membership, ct);
+    }
+
+    // DELETE
+    public async Task DeleteMembershipAsync(DeleteMembershipCommand command, CancellationToken ct = default)
+    {
+        var membership = await repo.GetByIdAsync(command.Id, ct);
+
+        if (membership is not null)
+        {
+            await repo.RemoveAsync(membership, ct);
+        }
     }
 }
-
