@@ -1,0 +1,137 @@
+﻿@* --- Huvudinnehåll för My Account --- *@
+<section class="section__account-dashboard">
+    <div class="container">
+        <header class="text-center" style="margin-bottom: 4rem;">
+            <h2 style="font-size: 3rem; text-transform: uppercase; letter-spacing: -0.05em;">My Account</h2>
+        </header>
+
+        <div class="account-dashboard-grid">
+            
+            <!-- SIDEBAR -->
+            <aside class="dashboard-sidebar">
+                <div class="profile-photo">
+                    <img src="https://images.unsplash.com/photo-1597347343908-2937e7dcc560?auto=format&fit=crop&q=80&w=1000"
+                         alt="Profile">
+                </div>
+
+                <nav class="sidebar-nav-card">
+                    <div class="nav-header">Menu Options</div>
+                    <ul class="nav-links">
+                        <li>
+                            <a href="#">
+                                <span style="color: var(--accent-dark);">About Me</span>
+                                <span class="arrow">▶</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>My Membership</span>
+                                <span class="arrow">▶</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>My Bookings</span>
+                                <span class="arrow">▶</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Sign Out</span>
+                                <span class="arrow">▶</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="account-delete-area">
+                    <p>If you like to remove your account click below</p>
+                    <button class="delete-link" style="background: none; border: none; cursor: pointer;">Remove Account</button>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT -->
+            <main class="dashboard-content">
+                <div class="about-me-card">
+                    <h3>About Me</h3>
+                    
+                    <form class="space-y-8">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" placeholder="Enter First Name" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" placeholder="Enter Last Name" class="form-input">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" value="username@domain.com" readonly class="form-input" style="opacity: 0.6; cursor: not-allowed;">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="Enter Phone Number" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Profile image</label>
+                            <div class="file-picker">
+                                <input type="text" placeholder="Upload Profile Image" readonly>
+                                <button type="button">Browse</button>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn accent gym-button-hover" style="box-shadow: 0 10px 15px -3px rgba(214, 235, 49, 0.2);">
+                                Save Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- STATISTICS -->
+                <div class="statistics-section">
+                    <h3>My Statistics</h3>
+                    <div class="stats-card">
+                        <!-- Stat Item 1 -->
+                        <div class="stat-item">
+                            <div class="stat-info">
+                                <span>Check-In (last 30 days)</span>
+                                <span>25</span>
+                            </div>
+                            <div class="stat-bar">
+                                <div class="progress-fill" style="width: 83%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Stat Item 2 -->
+                        <div class="stat-item">
+                            <div class="stat-info">
+                                <span>Weight Goal</span>
+                                <span>50%</span>
+                            </div>
+                            <div class="stat-bar">
+                                <div class="progress-fill" style="width: 50%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Stat Item 3 -->
+                        <div class="stat-item">
+                            <div class="stat-info">
+                                <span>Current BMI</span>
+                                <span>27</span>
+                            </div>
+                            <div class="stat-bar">
+                                <div class="progress-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</section>

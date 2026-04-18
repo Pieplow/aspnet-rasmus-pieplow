@@ -202,8 +202,8 @@ html,
 body {
     margin: 0;
     padding: 0;
-    background: var(--body-background-color);
-    color: var(--text-color);
+    background: var(--body-bg-color);
+    color: var(--body-text-color);
     font-family: var(--font-default);
     font-size: 16px;
     line-height: 1.5;
@@ -307,6 +307,7 @@ body {
     padding: 0 24px;
     border-radius: 16px;
     background: linear-gradient(135deg, #161320 0%, #1e1a2a 100%);
+    color: var(--white-color);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -348,6 +349,8 @@ body {
 }
 
 /* Hero */
+
+
 .section__hero .container {
     background: linear-gradient(135deg, #171420 0%, #211d2d 100%);
     border-radius: 18px;

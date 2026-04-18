@@ -1,11 +1,12 @@
 ﻿using Application.Memberships;
 using Application.Memberships.Commands;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.WebApp.ViewModels; // Se till att denna using finns
-                                      //
+using Presentation.WebApp.ViewModels; 
 
 
-namespace Presentation.WebApp.Controllers;public class MembershipsController(IMembershipService membershipService) : Controller
+namespace Presentation.WebApp.Controllers;
+
+public class MembershipsController(IMembershipService membershipService) : Controller
 
 {
 
