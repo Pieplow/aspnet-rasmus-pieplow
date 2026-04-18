@@ -1,3 +1,4 @@
+
 *,
 *::before,
 *::after {
@@ -5,15 +6,15 @@
 }
 
 :root {
-    --font-default: "Dm Sans" sans-serif;
-    --font-heading: "Poppin", sans-serif;
+    --font-default: "DM Sans", sans-serif;
+    --font-heading: "Poppins", sans-serif;
     --font-fa-regular: "Font Awesome 7 Pro Regular";
     --font-fa-solid: "Font Awesome 7 Pro Solid";
     --dark-color: #27252F;
     --grey-color: #6F6F6F;
     --light-color: #F7F7F7;
-    --white-color: #FFFFF;
-    --primary-color: #D6BE31;
+    --white-color: #FFFFFF;
+    --primary-color: #D6E831;
     --body-bg-color: var(--light-color);
     --body-text-color: var(--dark-color);
     --header-bg-color: var(--dark-color);
@@ -23,137 +24,26 @@
     --menu-text-color: var(--white-color);
     --menu-item-text-color: var(--white-color);
     --menu-item-text-hover-color: var(--primary-color);
-    --menu-item-text-active-color: var(--primary-color)
+    --menu-item-text-active-color: var(--primary-color);
+    /* EXTRA (behövs för layouten) */
+    --section-bg-light: #EFEFEF;
+    --section-bg-dark: linear-gradient(135deg, #171420 0%, #211d2d 100%);
 }
 
-body {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 400;
-    font-style: normal;
-    font-family: var(--font-default);
-    color: var(--body-text-color);
-    background-color: var(--body-bg-color);
-}
-
-.app-layout {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    min-height: 100dvh;
-    padding: 1rem;
-}
-
-header {
-    background-color: var(--header-bg-color);
-    color: var(--header-text-color);
-    border-radius: 1.25rem;
-    padding: 1rem;
-}
-
-footer {
-    background-color: var(--footer-bg-color);
-    color: var(--footer-text-color);
-    border-radius: 1.25rem;
-    padding: 1rem;
-}
-
-/*MENU*/
-.menu {
-    color: var(--menu-text-color);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 2rem;
-
-    .menu-item {
-        color: var(--menu-text-color);
-        font-size: 1rem;
-        font-weight: 600;
-
-
-        a {
-            color: var(--menu-text-color);
-            text-decoration: none;
-
-
-            &:hover {
-                color: var(--menu-item-text-hover-color);
-                text-decoration: underline;
-            }
-
-            &.active {
-                color: var(--menu-item-text-active-color);
-                text-decoration: underline;
-            }
-        }
-    }
-}
-
-/*Header Section*/
-.header-section {
-    display: grid;
-    align-items: center;
-
-    @media (width >= 768px) {
-    }
-
-    @media (width >= 1200px) {
-    }
-
-    @media (width >= 1400px) {
-        grid-template-columns: 1fr 3fr 1fr;
-    }
-
-    .logotype {
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .main-menu {
-        display: flex;
-        justify-content: center;
-
-        @media (width >= 768px) {
-        }
-
-        @media (width >= 1200px) {
-        }
-
-        @media (width >= 1400px) {
-            display: flex;
-        }
-    }
-
-    .account-menu {
-        display: flex;
-        justify-content: flex-end;
-
-        @media (width >= 768px) {
-        }
-
-        @media (width >= 1200px) {
-        }
-
-        @media (width >= 1400px) {
-        }
-    }
-}
-
-* Page background area */
+/* Page background area */
 .section__auth-page {
     padding: 40px 0 80px;
 }
 
-.section__auth-page .container {
-    background: var(--section-bg-light);
-    border-radius: 18px;
-    min-height: 760px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 20px;
-}
+    .section__auth-page .container {
+        background: var(--section-bg-light);
+        border-radius: 18px;
+        min-height: 760px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+    }
 
 /* Outer positioning wrapper */
 .auth-shell {
