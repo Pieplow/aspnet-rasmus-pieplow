@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController] // <-- GÖR ATT SWAGGER HITTAR DEN
 [Route("api/[controller]")] // <-- ADRESSEN BLIR api/memberships
-public class MembershipsController(IMembershipService membershipService) : ControllerBase // <-- Ändra till ControllerBase
+public class MembershipsAPIController(IMembershipService membershipService) : ControllerBase // <-- Ändra till ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetMemberships(CancellationToken ct)

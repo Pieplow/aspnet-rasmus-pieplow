@@ -1,6 +1,6 @@
 ﻿@{
     var title = ViewData["Title"]?.ToString();
-    var pageTitle = string.IsNullOrEmpty(title)
+    var pageTitle = !string.IsNullOrEmpty(title)
         ? $"{title} | CoreFitness Club"
         : "CoreFitness Club | Gym & Fitness";
         
