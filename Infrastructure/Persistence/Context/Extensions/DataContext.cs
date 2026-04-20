@@ -17,4 +17,6 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
 
     public DbSet<MembershipEntity> Memberships => Set<MembershipEntity>();
     public DbSet<MembershipBenefitEntity> MembershipBenefits => Set<MembershipBenefitEntity>();
+
+    public DbSet<GymClass> GymClasses => Set<GymClass>();
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Abstractions.Repositories
 {
-    internal interface IGymClassRepository
+    public interface IGymClassRepository
     {
     }
 }

@@ -2,9 +2,14 @@
 
 public class BookingViewModel
 {
-    public string Title { get; set; } = "Book Your Session";
-    public DateTime SelectedDate { get; set; } = DateTime.Now;
+    public string PageTitle { get; set; } = "Book Your Training";
+    public List<GymClass> AvailableClasses { get; set; } = new();
+}
 
-    //lägg till träningspass senare
-    public List<string> AvailableTimes { get; set; } = new() { "08:00", "10:00", "14:00", "17:00" };
+public class GymClass
+{
+    public string Name { get; set; } = null!;
+    public string Trainer { get; set; } = null!;
+    public string Time { get; set; } = null!;
+    public string Intensity { get; set; } = null!;
 }

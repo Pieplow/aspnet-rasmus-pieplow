@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Aggregates.GymClasses
+namespace Application.Account.Commands
 {
-    public class GymClass
+    internal class CreateBookingCommand
     {
     }
 }

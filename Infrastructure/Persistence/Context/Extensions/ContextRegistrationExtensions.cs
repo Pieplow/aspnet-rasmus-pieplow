@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
-using Infrastructure.Persistence.Context.Extensions;
+
 
 
 namespace Infrastructure.Persistence.Context.Extensions;
