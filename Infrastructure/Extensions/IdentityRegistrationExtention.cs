@@ -25,7 +25,8 @@ public static class IdentityRegistrationExtensions
             options.Password.RequireUppercase = false;
         })
         .AddEntityFrameworkStores<DataContext>() // Ber Identity använda din DB
-        .AddDefaultTokenProviders();
+        .AddDefaultTokenProviders()
+        .AddSignInManager();
 
         return services;
     }
