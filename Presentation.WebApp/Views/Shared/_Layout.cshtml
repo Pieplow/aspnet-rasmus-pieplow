@@ -23,6 +23,7 @@
             @await Html.PartialAsync("~/Views/Shared/Partials/Layouts/_HeaderSection.cshtml")
 
             @await RenderSectionAsync("Hero", required: false)
+            @await RenderSectionAsync("MyAccount", required: false)
         </header>
         <main>
             @RenderBody()

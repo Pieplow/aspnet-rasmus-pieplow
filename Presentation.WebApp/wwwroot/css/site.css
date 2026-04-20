@@ -1097,3 +1097,354 @@ textarea {
         grid-template-columns: 300px 1fr;
     }
 }
+
+/*My Account*/
+
+.section__account-dashboard {
+    padding: 3rem 1rem;
+    background-color: var(--gym-soft);
+}
+
+@media (min-width: 768px) {
+    .section__account-dashboard {
+        padding: 6rem 1rem;
+    }
+}
+
+.account-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .account-dashboard-grid {
+        gap: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .account-dashboard-grid {
+        grid-template-columns: 380px 1fr;
+    }
+}
+
+.profile-photo {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .profile-photo {
+        border-radius: 2.5rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .profile-photo img {
+        height: 400px;
+    }
+}
+
+.sidebar-nav-card {
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .sidebar-nav-card {
+        border-radius: 1.5rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.nav-header {
+    background-color: var(--accent-color);
+    padding: 1.25rem;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gym-dark);
+}
+
+@media (min-width: 768px) {
+    .nav-header {
+        padding: 1.5rem;
+        font-size: 13px;
+    }
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: white;
+}
+
+    .nav-links li {
+        border-bottom: 1px solid #f9fafb;
+    }
+
+        .nav-links li:last-child {
+            border-bottom: none;
+        }
+
+    .nav-links a {
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+@media (min-width: 768px) {
+    .nav-links a {
+        padding: 1.25rem 1.5rem;
+    }
+}
+
+.nav-links a:hover {
+    background-color: #f9fafb;
+}
+
+.nav-links a span:first-child {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--gym-dark);
+}
+
+@media (min-width: 768px) {
+    .nav-links a span:first-child {
+        font-size: 0.875rem;
+    }
+}
+
+.nav-links li.active a span:first-child {
+    color: var(--accent-dark);
+}
+
+.nav-links .arrow {
+    color: #e5e7eb;
+}
+
+.nav-links li.active .arrow {
+    color: var(--accent-color);
+}
+
+.account-delete-area {
+    text-align: center;
+    padding: 0 1rem;
+}
+
+    .account-delete-area p {
+        font-size: 9px;
+        font-weight: 700;
+        color: #9ca3af;
+        text-transform: uppercase;
+        margin-bottom: 0.375rem;
+    }
+
+@media (min-width: 768px) {
+    .account-delete-area p {
+        font-size: 10px;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.delete-link {
+    font-size: 11px;
+    font-weight: 900;
+    color: #ef4444;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    .delete-link {
+        font-size: 0.75rem;
+    }
+}
+
+.delete-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.about-me-card {
+    background-color: white;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .about-me-card {
+        border-radius: 2.5rem;
+        padding: 4rem;
+        margin-bottom: 4rem;
+    }
+}
+
+.about-me-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .about-me-card h3 {
+        font-size: 2.25rem;
+        margin-bottom: 3rem;
+    }
+}
+
+.file-picker {
+    display: flex;
+    background-color: #f8f9fa;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+    .file-picker input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        padding: 0.875rem 1.25rem;
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: #9ca3af;
+        outline: none;
+    }
+
+@media (min-width: 768px) {
+    .file-picker input {
+        padding: 1rem 1.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+.file-picker button {
+    background-color: #e2e4e5;
+    padding: 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--gym-dark);
+    border: none;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .file-picker button {
+        padding: 0 1.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+.file-picker button:hover {
+    background-color: #d1d5db;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .form-actions {
+        padding-top: 1rem;
+    }
+}
+
+.statistics-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .statistics-section h3 {
+        font-size: 2.25rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.stats-card {
+    background-color: white;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .stats-card {
+        border-radius: 2.5rem;
+        padding: 2.5rem;
+        gap: 2.5rem;
+    }
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+@media (min-width: 768px) {
+    .stat-item {
+        gap: 0.5rem;
+    }
+}
+
+.stat-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--gym-dark);
+}
+
+@media (min-width: 768px) {
+    .stat-info {
+        font-size: 0.875rem;
+    }
+}
+
+.stat-bar {
+    width: 100%;
+    height: 0.4rem;
+    background-color: #f3f4f6;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .stat-bar {
+        height: 0.5rem;
+    }
+}
+
+.stat-bar .progress-fill {
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 9999px;
+}
