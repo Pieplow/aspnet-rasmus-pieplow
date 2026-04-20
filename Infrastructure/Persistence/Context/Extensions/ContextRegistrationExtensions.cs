@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 using Infrastructure.Persistence.Context.Extensions;
 
 
-namespace Infrastructure.Persistance.Context.Extensions;
+namespace Infrastructure.Persistence.Context.Extensions;
 public static class ContextRegistrationExtensions
 {
     public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration, IHostEnvironment env)
