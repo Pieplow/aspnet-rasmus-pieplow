@@ -15,15 +15,12 @@ namespace Infrastructure.Persistence
 
             if (env.IsDevelopment())
             {
-                // För SQLite In-Memory (VG-krav):
-                // Skapar tabellerna direkt i RAM-minnet utan att läsa migrations-filer.
-                // Detta gör att vi slipper syntax-felet "near max".
+               
                 await context.Database.EnsureCreatedAsync(ct);
             }
             else
             {
-                // För SQL Server (När du kör i Production-läge för Postman/Swagger):
-                // Kör de riktiga migreringarna mot SQL Server Management Studio.
+                
                 await context.Database.MigrateAsync(ct);
             }
         }

@@ -13,7 +13,7 @@ public sealed class MembershipService(IMembershipRepository repo) : IMembershipS
         var memberships = await repo.GetAllAsync(ct);
 
         return memberships.Select(m => new MembershipResponse(
-            m.Id,
+            m.Id, 
             m.Title,
             m.Description,
             m.Benefits,
@@ -24,7 +24,9 @@ public sealed class MembershipService(IMembershipRepository repo) : IMembershipS
     // CREATE
     public async Task CreateMembershipAsync(CreateMembershipCommand command, CancellationToken ct = default)
     {
+        // VIKTIGT: Vi skickar nu med command.UserId (som ska vara int)
         var membership = Membership.Create(
+            command.UserId,
             command.Title,
             command.Description,
             command.Benefits,
@@ -38,12 +40,12 @@ public sealed class MembershipService(IMembershipRepository repo) : IMembershipS
     // UPDATE
     public async Task UpdateMembershipAsync(UpdateMembershipCommand command, CancellationToken ct = default)
     {
+        // Eftersom command.Id nu bör vara en int i DTO:n, slipper vi parse om vi ändrar i Command-klassen
         var membership = await repo.GetByIdAsync(command.Id, ct);
 
         if (membership is null)
             throw new KeyNotFoundException($"Membership with ID {command.Id} was not found.");
 
-       
         membership.Update(
             command.Title,
             command.Description,

@@ -1,23 +1,19 @@
 ﻿using Domain.Abstractions.Repositories;
-using Domain.Aggregates.GymClasses; // Denna används för returtypen
-using Infrastructure.Persistence.Context; // Där din DataContext bor
+using Domain.Aggregates.GymClasses;
 using Infrastructure.Persistence.Context.Extensions;
-using Microsoft.EntityFrameworkCore; // KRÄVS för ToListAsync()
+using Infrastructure.Persistence.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-// Om IGymClassRepository kräver Domain-modeller, måste vi mappa dem här
+// Den här raden (klassen) MÅSTE omsluta all kod under
 public class GymClassRepository(DataContext context) : IGymClassRepository
 {
     public async Task<IEnumerable<GymClass>> GetAllAsync(CancellationToken ct)
     {
-        // 1. Hämta från databasen (Entities)
-        // 2. Om IGymClassRepository förväntar sig Domain-modeller måste de konverteras.
-        // Här antar vi att tabellen i DataContext heter 'GymClasses'
-
+        // Nu kommer 'context' hittas eftersom den skickas in i klassen ovan
         var entities = await context.GymClasses.ToListAsync(ct);
 
-        // Mappa om från Infrastructure-Entity till Domain-Aggregate
         return entities.Select(e => new GymClass
         {
             Id = e.Id,
@@ -26,6 +22,23 @@ public class GymClassRepository(DataContext context) : IGymClassRepository
             StartTime = e.StartTime,
             EndTime = e.EndTime,
             Intensity = e.Intensity
-        });
+        }).ToList();
     }
-}
+
+    public async Task<GymClass?> GetByIdAsync(int id, CancellationToken ct)
+    {
+        var e = await context.GymClasses.FirstOrDefaultAsync(x => x.Id == id, ct);
+
+        if (e == null) return null;
+
+        return new GymClass
+        {
+            Id = e.Id,
+            Name = e.Name,
+            Trainer = e.Trainer,
+            StartTime = e.StartTime,
+            EndTime = e.EndTime,
+            Intensity = e.Intensity
+        };
+    }
+} 

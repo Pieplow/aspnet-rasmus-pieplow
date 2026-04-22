@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Booking.Commands
+namespace Application.Booking.Commands.Responses
 {
-    internal class CreateBookingCommand
+    internal class BookingResponses
     {
     }
 }

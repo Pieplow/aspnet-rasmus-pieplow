@@ -1,7 +1,7 @@
 ﻿namespace Application.Memberships.Commands;
 
 public record UpdateMembershipCommand(
-    string Id,
+    int Id,
     string Title,
     string Description,
     List<string> Benefits,

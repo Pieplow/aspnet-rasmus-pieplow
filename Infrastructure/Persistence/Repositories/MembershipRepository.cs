@@ -6,30 +6,32 @@ using Infrastructure.Persistence.Entities;
 namespace Infrastructure.Persistence.Repositories;
 
 public sealed class MembershipRepository(DataContext context)
-    : RepositoryBase<Membership, string, MembershipEntity, DataContext>(context)
+    : RepositoryBase<Membership, int, MembershipEntity, DataContext>(context)
     , IMembershipRepository
 {
-    //configuration for the repository, not implemented yet//
     protected override void ApplyPropertyUpdated(MembershipEntity entity, Membership model)
     {
-        throw new NotImplementedException();
+        entity.Title = model.Title;
+        entity.Description = model.Description;
+        entity.Price = model.Price;
+        entity.MonthlyClasses = model.MonthlyClasses;
+        // Här kan du även hantera Benefits om det behövs
     }
 
-    protected override string GetId(Membership model)
+    protected override int GetId(Membership model)
     {
+        // Nu när model.Id är en int, returnerar vi den direkt!
         return model.Id;
     }
 
     protected override Membership ToDomainModel(MembershipEntity entity)
     {
+        var benefits = entity.Benefits.Select(b => b.Benefit).ToList();
 
-        var benefits = new List<string>();
-        foreach (var benefit in entity.Benefits)
-            benefits.Add(benefit.Benefit);
-
-
+        // Vi använder den nya Create-metoden som tar int (UserId och ev. Id)
+        // OBS: Om din Create-metod kräver UserId, se till att entity har det fältet
         var model = Membership.Create(
-            entity.Id,
+            entity.UserId,
             entity.Title,
             entity.Description,
             benefits,
@@ -44,7 +46,8 @@ public sealed class MembershipRepository(DataContext context)
     {
         var entity = new MembershipEntity
         {
-            Id = model.Id,
+            Id = model.Id, // Ingen int.Parse behövs längre!
+            UserId = model.UserId,
             Title = model.Title,
             Description = model.Description,
             Price = model.Price,

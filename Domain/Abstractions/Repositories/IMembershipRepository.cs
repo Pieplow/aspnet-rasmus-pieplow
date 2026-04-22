@@ -2,6 +2,6 @@
 
 namespace Domain.Abstractions.Repositories;
 
-public interface IMembershipRepository : IRepositoryBase<Membership, String>
+public interface IMembershipRepository : IRepositoryBase<Membership, int>
 {
 }

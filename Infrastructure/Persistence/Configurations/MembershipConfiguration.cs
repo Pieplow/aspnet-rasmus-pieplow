@@ -17,10 +17,7 @@ internal class MembershipConfiguration : IEntityTypeConfiguration<MembershipEnti
             .IsRequired()
             .HasMaxLength(450);
 
-        builder.Property(x => x.UserId)
-            .IsRequired();
-
-        builder.HasIndex(x => x.UserId);
+  
 
         builder.Property(x => x.Title)
             .IsRequired()

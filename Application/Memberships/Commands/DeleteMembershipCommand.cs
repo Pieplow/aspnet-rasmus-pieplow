@@ -1,3 +1,3 @@
 ﻿namespace Application.Memberships.Commands;
 
-public record DeleteMembershipCommand(string Id);
+public record DeleteMembershipCommand(int Id);

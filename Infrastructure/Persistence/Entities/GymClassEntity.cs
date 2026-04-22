@@ -1,7 +1,7 @@
 ﻿namespace Infrastructure.Persistence.Entities;
 
 
-public class GymClass
+public class GymClassEntity
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

@@ -2,24 +2,31 @@
 
 public sealed class Membership
 {
-    // 1. Deklarera Id här så att konstruktorn kan använda den
-    public string Id { get; private set; }
-    public string UserId { get; } = null!;
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public List<string> Benefits { get; set; }
+    // 1. Nu som int för att matcha databasen
+    public int Id { get; private set; }
+
+    // 2. UserId ska också vara int eftersom Identity-användaren är int nu
+    public int UserId { get; private set; }
+
+    public string Title { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public List<string> Benefits { get; set; } = new();
     public decimal Price { get; private set; }
     public int MonthlyClasses { get; private set; }
 
-    private Membership(string id, string title, string description, List<string> benefits, decimal price, int monthlyClasses)
+    // Konstruktorn tar nu int userId istället för string id
+    private Membership(int userId, string title, string description, List<string> benefits, decimal price, int monthlyClasses)
     {
-        Id = Required(id, nameof(Id));
+        UserId = userId;
         Title = Required(title, nameof(Title));
         Description = Required(description, nameof(Description));
         Benefits = benefits;
         Price = CheckPriceValue(price, nameof(Price));
         MonthlyClasses = monthlyClasses;
     }
+
+    
+    private Membership() { }
 
     private static string Required(string value, string propertyName)
     {
@@ -37,15 +44,11 @@ public sealed class Membership
         return value;
     }
 
-    public static Membership Create(string title, string description, List<string> benefits, decimal price = 0, int monthlyClasses = 0) =>
-        new(Guid.NewGuid().ToString(), title, description, benefits, price, monthlyClasses);
-
-    public static Membership Create(string id, string title, string description, List<string> benefits, decimal price = 0, int monthlyClasses = 0) =>
-        new(id, title, description, benefits, price, monthlyClasses);
+    public static Membership Create(int userId, string title, string description, List<string> benefits, decimal price = 0, int monthlyClasses = 0) =>
+        new(userId, title, description, benefits, price, monthlyClasses);
 
     public void Update(string title, string description, List<string> benefits, decimal price, int monthlyClasses)
     {
-        // Vi återanvänder samma validering som i konstruktorn!
         Title = Required(title, nameof(Title));
         Description = Required(description, nameof(Description));
         Benefits = benefits;
