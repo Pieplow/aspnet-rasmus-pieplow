@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain.Aggregates.Bookings;
 
-namespace Domain.Abstractions.Repositories
+namespace Domain.Abstractions.Repositories;
+
+public interface IBookingRepository : IRepositoryBase<Booking, int>
 {
-    internal interface IBookingRepository
-    {
-    }
+
+    Task<bool> ExistsAsync(int userId, int gymClassId);
 }

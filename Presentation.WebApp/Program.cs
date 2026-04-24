@@ -1,3 +1,4 @@
+using Application.Abstractions;
 using Application.Extensions;
 using Infrastructure.Extensions;
 using Infrastructure.Persistence;
@@ -14,6 +15,8 @@ builder.Services.AddRouting(options =>
 builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
 
 builder.Services.AddApplication(builder.Configuration, builder.Environment);
+
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

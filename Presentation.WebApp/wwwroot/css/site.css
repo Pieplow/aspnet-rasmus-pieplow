@@ -28,6 +28,7 @@
     /* EXTRA (behövs för layouten) */
     --section-bg-light: #EFEFEF;
     --section-bg-dark: linear-gradient(135deg, #171420 0%, #211d2d 100%);
+    --card-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
 /* Page background area */
@@ -1447,4 +1448,85 @@ textarea {
     height: 100%;
     background-color: var(--accent-color);
     border-radius: 9999px;
+}
+
+/* Login/Signup forms (Themed to your ROOT) */
+.section__account {
+    background: var(--light-color);
+    padding: 60px 0;
+}
+
+.account-card {
+    width: 100%;
+    max-width: 500px;
+    background: var(--white-color);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--card-shadow);
+    margin: 0 auto;
+}
+
+    .account-card h3 {
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+    }
+
+    .account-card .intro {
+        font-size: 13px;
+        color: var(--grey-color);
+        line-height: 1.5;
+        margin-bottom: 28px;
+    }
+
+.social-login {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.social-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--light-color);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--grey-color);
+    margin: 20px 0;
+}
+
+    .divider::before,
+    .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--light-color);
+    }
+
+.forgot-link {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--grey-color);
+}
+
+.terms-check {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--grey-color);
 }
