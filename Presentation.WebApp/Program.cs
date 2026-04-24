@@ -1,7 +1,9 @@
-using Application.Abstractions;
+using Application.Bookings;
 using Application.Extensions;
+using Domain.Abstractions.Repositories;
 using Infrastructure.Extensions;
 using Infrastructure.Persistence;
+using Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,10 @@ builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
 builder.Services.AddApplication(builder.Configuration, builder.Environment);
 
 builder.Services.AddScoped<IBookingService, BookingService>();
+
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+
+builder.Services.AddScoped<IGymClassRepository, GymClassRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

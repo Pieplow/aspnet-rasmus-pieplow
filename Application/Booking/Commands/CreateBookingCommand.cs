@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Application.Bookings.Commands;
 
-namespace Application.Booking.Commands
-{
-    internal class CreateBookingCommand
-    {
-    }
-}
+public record CreateBookingCommand(int UserId, int GymClassId);

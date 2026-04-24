@@ -1,7 +1,7 @@
-﻿using Domain.Abstractions.Repositories;
-using Domain.Aggregates.Bookings;
+﻿using Domain.Aggregates.Bookings;
 using Infrastructure.Persistence.Context.Extensions;
 using Infrastructure.Persistence.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class BookingRepository : RepositoryBase<Booking, int, BookingEntity, DataContext>, IBookingRepository
 {
@@ -21,7 +21,7 @@ public class BookingRepository : RepositoryBase<Booking, int, BookingEntity, Dat
 
     // 3. Mappa till Domain (Logik)
     protected override Booking ToDomainModel(BookingEntity entity)
-        => Booking.Create(entity.UserId, entity.GymClassId);
+    => Booking.Create(entity.UserId, entity.GymClassId);
 
     // 4. Hantera uppdatering
     protected override void ApplyPropertyUpdated(BookingEntity entity, Booking model)
@@ -31,8 +31,13 @@ public class BookingRepository : RepositoryBase<Booking, int, BookingEntity, Dat
     }
 
     // Din unika metod
-    public async Task<bool> ExistsAsync(int userId, int gymClassId)
+    public async Task<bool> ExistsAsync(int userId, int gymClassId, CancellationToken ct = default)
     {
-        return await Set.AnyAsync(b => b.UserId == userId && b.GymClassId == gymClassId);
+        return await Set.AnyAsync(b => b.UserId == userId && b.GymClassId == gymClassId, ct);
+    }
+
+    public async Task<int> CountBookingsForClassAsync(int gymClassId, CancellationToken ct = default)
+    {
+        return await Set.CountAsync(b => b.GymClassId == gymClassId, ct);
     }
 }

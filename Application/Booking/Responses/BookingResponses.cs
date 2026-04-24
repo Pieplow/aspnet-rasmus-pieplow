@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Application.Bookings.Responses;
 
-namespace Application.Booking.Responses
-{
-    internal class BookingResponses
-    {
-    }
-}
+public record BookingResponse(
+    int Id,
+    int GymClassId,
+    DateTime BookedAt
+);

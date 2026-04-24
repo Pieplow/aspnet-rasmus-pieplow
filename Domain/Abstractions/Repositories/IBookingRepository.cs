@@ -1,9 +1,9 @@
-﻿using Domain.Aggregates.Bookings;
-
-namespace Domain.Abstractions.Repositories;
+﻿using Domain.Abstractions.Repositories;
+using Domain.Aggregates.Bookings;
 
 public interface IBookingRepository : IRepositoryBase<Booking, int>
 {
+    Task<bool> ExistsAsync(int userId, int gymClassId, CancellationToken ct = default);
 
-    Task<bool> ExistsAsync(int userId, int gymClassId);
+    Task<int> CountBookingsForClassAsync(int gymClassId, CancellationToken ct = default);
 }

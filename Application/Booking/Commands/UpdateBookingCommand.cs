@@ -1,6 +1,6 @@
 ﻿
 
-namespace Application.Booking.Commands
+namespace Application.Bookings.Commands
 {
     internal class UpdateBookingCommand
     {

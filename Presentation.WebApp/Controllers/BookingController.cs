@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Application.Abstractions; // Denna behövs för IBookingService
+using Application.Bookings;
 using Microsoft.AspNetCore.Authorization;
+using Application.Bookings.Commands;
 
 namespace Presentation.WebApp.Controllers;
 
@@ -24,14 +25,16 @@ public class BookingController : Controller
         var bookings = await _bookingService.GetUserBookingsAsync(userId);
         return View(bookings);
     }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Cancel(int bookingId)
+    public async Task<IActionResult> Book(int gymClassId)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
-        var result = await _bookingService.CancelBookingAsync(bookingId, userId);
+        var command = new CreateBookingCommand(userId, gymClassId);
+        var result = await _bookingService.BookClassAsync(command);
+
+
 
         if (!result.IsSuccess)
         {
@@ -39,7 +42,7 @@ public class BookingController : Controller
             return RedirectToAction("MyBookings");
         }
 
-        TempData["Success"] = "Your booking has been cancelled.";
+        TempData["Success"] = "Booking successful!";
         return RedirectToAction("MyBookings");
     }
 }
