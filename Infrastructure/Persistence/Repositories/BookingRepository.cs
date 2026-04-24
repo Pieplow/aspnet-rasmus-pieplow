@@ -1,38 +1,38 @@
 ﻿using Domain.Abstractions.Repositories;
 using Domain.Aggregates.Bookings;
 using Infrastructure.Persistence.Context.Extensions;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Persistence.Entities;
 
-namespace Infrastructure.Repositories;
-
-public class BookingRepository : IBookingRepository
+public class BookingRepository : RepositoryBase<Booking, int, BookingEntity, DataContext>, IBookingRepository
 {
-    private readonly DataContext _context; // Här definierar vi namnet!
+    public BookingRepository(DataContext context) : base(context) { }
 
-    public BookingRepository(DataContext context)
+    // 1. Mappa ID
+    protected override int GetId(Booking model) => model.Id;
+
+    // 2. Mappa till Entity (Infrastruktur)
+    protected override BookingEntity ToEntity(Booking model) => new()
     {
-        _context = context;
+        Id = model.Id,
+        UserId = model.UserId,
+        GymClassId = model.GymClassId,
+        BookedAt = model.BookedAt
+    };
+
+    // 3. Mappa till Domain (Logik)
+    protected override Booking ToDomainModel(BookingEntity entity)
+        => Booking.Create(entity.UserId, entity.GymClassId);
+
+    // 4. Hantera uppdatering
+    protected override void ApplyPropertyUpdated(BookingEntity entity, Booking model)
+    {
+        entity.UserId = model.UserId;
+        entity.GymClassId = model.GymClassId;
     }
 
-    public async Task<BookingEntity?> GetByIdAsync(int id)
-    {
-        // Nu fungerar _context eftersom vi definierat den ovan
-        return await _context.Bookings.FindAsync(id);
-    }
-
-    public async Task RemoveAsync(BookingEntity booking)
-    {
-        _context.Bookings.Remove(booking);
-        await Task.CompletedTask;
-    }
-
+    // Din unika metod
     public async Task<bool> ExistsAsync(int userId, int gymClassId)
     {
-        return await _context.Bookings.AnyAsync(b => b.UserId == userId && b.GymClassId == gymClassId);
-    }
-
-    public async Task AddAsync(BookingEntity booking)
-    {
-        await _context.Bookings.AddAsync(booking);
+        return await Set.AnyAsync(b => b.UserId == userId && b.GymClassId == gymClassId);
     }
 }

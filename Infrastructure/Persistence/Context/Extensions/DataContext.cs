@@ -22,4 +22,7 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     public DbSet<MembershipBenefitEntity> MembershipBenefits => Set<MembershipBenefitEntity>();
 
     public DbSet<GymClassEntity> GymClasses => Set<GymClassEntity>();
+
+    public DbSet<BookingEntity> Bookings => Set<BookingEntity>();
+
 }
