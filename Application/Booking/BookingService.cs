@@ -2,6 +2,7 @@
 using Application.Bookings.Responses;
 using Domain.Abstractions;
 using Domain.Aggregates.Bookings;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Application.Bookings;
 
@@ -9,9 +10,12 @@ public class BookingService : IBookingService
 {
     private readonly IBookingRepository _bookingRepository;
 
-    public BookingService(IBookingRepository bookingRepository)
+    private readonly IMemoryCache _cache;
+
+    public BookingService(IBookingRepository bookingRepository, IMemoryCache cache)
     {
         _bookingRepository = bookingRepository;
+        _cache = cache;
     }
 
     public async Task<Result> BookClassAsync(CreateBookingCommand command)
@@ -53,6 +57,9 @@ public class BookingService : IBookingService
             return Result.Failure("Not allowed");
 
         await _bookingRepository.RemoveAsync(booking);
+
+        
+        _cache.Remove($"bookings_{userId}");
 
         return Result.Success();
     }

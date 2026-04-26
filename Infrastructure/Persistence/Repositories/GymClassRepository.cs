@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-// Den här raden (klassen) MÅSTE omsluta all kod under
+
 public class GymClassRepository(DataContext context) : IGymClassRepository
 {
     public async Task<IEnumerable<GymClass>> GetAllAsync(CancellationToken ct)
