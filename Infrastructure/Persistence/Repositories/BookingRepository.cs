@@ -31,7 +31,7 @@ public class BookingRepository : RepositoryBase<Booking, int, BookingEntity, Dat
     }
 
     // Din unika metod
-    public async Task<bool> ExistsAsync(int userId, int gymClassId, CancellationToken ct = default)
+    public async Task<bool> ExistsAsync(Guid userId, int gymClassId, CancellationToken ct = default)
     {
         return await Set.AnyAsync(b => b.UserId == userId && b.GymClassId == gymClassId, ct);
     }

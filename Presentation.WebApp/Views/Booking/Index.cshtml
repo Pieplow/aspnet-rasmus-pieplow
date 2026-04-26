@@ -1,56 +1,49 @@
-﻿@using Presentation.WebApp.Models.Booking
-@model BookingViewModel
-
-@{
-    ViewData["Title"] = "Our Memberships";
-}
-<!-- My Bookings Page -->
+﻿<!-- My Bookings Page -->
 <section class="section__bookings">
     <div class="container">
-        <header class="text-center" style="margin-bottom: 4rem;">
-            <h2 style="font-size: 3rem;">My Booked Classes</h2>
-            <p style="color: #6b7280; margin-top: 1rem;">Manage your upcoming training sessions</p>
+        <header class="section__header-wide">
+            <h2>My Booked Classes</h2>
+            <p>Manage your upcoming training sessions</p>
         </header>
 
         <div class="bookings-grid">
             <!-- Booking Card -->
-            <div class="booking-card">
-                <span class="status-tag">Confirmed</span>
-                <h4>Power Yoga</h4>
-                <div class="info">
-                    <span>📅 2026-04-25</span>
-                    <span>⏰ 09:00 - 10:00</span>
-                    <span>👤 Sarah J.</span>
-                </div>
-                <div style="margin-top: auto; padding-top: 1rem; display: flex; justify-content: flex-end;">
-                    <a href="#" class="delete-link" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                        🗑 Cancel Booking
+            @if (Model?.Any() != true)
+            {
+                <div class="booking-card booking-card--empty">
+                    <p>No bookings yet</p>
+                    <a href="/Classes" class="btn accent">
+                        Browse Classes →
                     </a>
                 </div>
-            </div>
+            }
+            else
+            {
+                foreach (var booking in Model)
+                {
+                    <div class="booking-card">
+                        <span class="status-tag">Confirmed</span>
 
-            <div class="booking-card">
-                <span class="status-tag">Confirmed</span>
-                <h4>HIIT Cardio</h4>
-                <div class="info">
-                    <span>📅 2026-04-26</span>
-                    <span>⏰ 17:30 - 18:30</span>
-                    <span>👤 Mike D.</span>
-                </div>
-                <div style="margin-top: auto; padding-top: 1rem; display: flex; justify-content: flex-end;">
-                    <a href="#" class="delete-link" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                        🗑 Cancel Booking
-                    </a>
-                </div>
-            </div>
-            
-            <!-- CTA Card -->
-            <div class="booking-card" style="border-style: dashed; border-left-color: #d1d5db; background: transparent; justify-content: center; align-items: center; text-align: center;">
-                <p style="font-weight: 700; color: #9ca3af; margin-bottom: 1rem;">Book another session?</p>
-                <a href="#" class="btn accent" style="padding: 0.75rem 1.5rem; font-size: 9px;">
-                    Browse Classes →
-                </a>
-            </div>
+                        <h4>@booking.Title</h4>
+
+                        <div class="info">
+                            <span>📅 @booking.BookedAt.ToString("yyyy-MM-dd")</span>
+                            <span>⏰ @booking.Time</span>
+                            <span>👤 @booking.Instructor</span>
+                        </div>
+
+                        <div class="booking-card-footer">
+                            <form asp-action="Cancel" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="bookingId" value="@booking.Id" />
+                                <button type="submit" class="delete-link">
+                                    🗑 Cancel Booking
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
 </section>

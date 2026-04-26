@@ -6,7 +6,7 @@ public interface IBookingService
 {
     Task<Result> BookClassAsync(CreateBookingCommand command);
 
-    Task<List<BookingResponse>> GetUserBookingsAsync(int userId);
+    Task<List<BookingResponse>> GetUserBookingsAsync(Guid userId);
 
-    Task<Result> CancelBookingAsync(int bookingId, int userId);
+    Task<Result> CancelBookingAsync(int bookingId, Guid userId);
 }

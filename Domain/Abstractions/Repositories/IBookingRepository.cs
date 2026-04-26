@@ -3,7 +3,7 @@ using Domain.Aggregates.Bookings;
 
 public interface IBookingRepository : IRepositoryBase<Booking, int>
 {
-    Task<bool> ExistsAsync(int userId, int gymClassId, CancellationToken ct = default);
+    Task<bool> ExistsAsync(Guid userId, int gymClassId, CancellationToken ct = default);
 
     Task<int> CountBookingsForClassAsync(int gymClassId, CancellationToken ct = default);
 }

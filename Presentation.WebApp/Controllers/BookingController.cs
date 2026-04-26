@@ -21,7 +21,7 @@ public class BookingController : Controller
     [HttpGet]
     public async Task<IActionResult> MyBookings()
     {
-        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var bookings = await _bookingService.GetUserBookingsAsync(userId);
         return View(bookings);
     }
@@ -29,7 +29,7 @@ public class BookingController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Book(int gymClassId)
     {
-        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
         var command = new CreateBookingCommand(userId, gymClassId);
         var result = await _bookingService.BookClassAsync(command);

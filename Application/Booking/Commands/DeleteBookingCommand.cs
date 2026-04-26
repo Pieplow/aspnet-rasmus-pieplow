@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain.Abstractions;
 
-namespace Application.Bookings.Commands
-{
-    internal class DeleteBookingCommand
-    {
-    }
-}
+public record DeleteBookingCommand(int BookingId, Guid UserId);
+

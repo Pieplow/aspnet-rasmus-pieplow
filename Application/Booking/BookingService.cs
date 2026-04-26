@@ -1,7 +1,6 @@
 ﻿using Application.Bookings.Commands;
 using Application.Bookings.Responses;
 using Domain.Abstractions;
-using Domain.Abstractions.Repositories;
 using Domain.Aggregates.Bookings;
 
 namespace Application.Bookings;
@@ -29,7 +28,7 @@ public class BookingService : IBookingService
         return Result.Success();
     }
 
-    public async Task<List<BookingResponse>> GetUserBookingsAsync(int userId)
+    public async Task<List<BookingResponse>> GetUserBookingsAsync(Guid userId)
     {
         var all = await _bookingRepository.GetAllAsync();
 
@@ -43,7 +42,7 @@ public class BookingService : IBookingService
             .ToList();
     }
 
-    public async Task<Result> CancelBookingAsync(int bookingId, int userId)
+    public async Task<Result> CancelBookingAsync(int bookingId, Guid userId)
     {
         var booking = await _bookingRepository.GetByIdAsync(bookingId);
 
