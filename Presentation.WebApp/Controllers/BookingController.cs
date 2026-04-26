@@ -1,6 +1,6 @@
 ﻿using Application.Bookings;
 using Application.Bookings.Commands;
-using Domain.Abstractions.Repositories; // Lägg till denna för interfacet
+using Domain.Abstractions.Repositories; 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,9 +11,9 @@ namespace Presentation.WebApp.Controllers;
 public class BookingController : Controller
 {
     private readonly IBookingService _bookingService;
-    private readonly IGymClassRepository _gymClassRepository; // Lägg till detta fält
+    private readonly IGymClassRepository _gymClassRepository; 
 
-    // Uppdatera konstruktorn att ta emot båda
+    
     public BookingController(
         IBookingService bookingService,
         IGymClassRepository gymClassRepository)

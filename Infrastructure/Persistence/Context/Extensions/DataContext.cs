@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Persistence.Entities;
 using Infrastructure.Persistence.Seed;
+using Domain.Aggregates.GymClasses;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     public DbSet<MembershipEntity> Memberships => Set<MembershipEntity>();
     public DbSet<MembershipBenefitEntity> MembershipBenefits => Set<MembershipBenefitEntity>();
 
-    public DbSet<GymClassEntity> GymClasses => Set<GymClassEntity>();
+    public DbSet<GymClass> GymClasses => Set<GymClass>();
 
     public DbSet<BookingEntity> Bookings => Set<BookingEntity>();
 

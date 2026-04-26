@@ -1,14 +1,32 @@
-﻿using System;
+﻿namespace Domain.Aggregates.GymClasses;
 
-namespace Domain.Aggregates.GymClasses
+public class GymClass
 {
-    public class GymClass
+    // Egenskaper med private set för att skydda datan
+    public int Id { get; private set; }
+    public string Name { get; private set; } = null!;
+    public string Trainer { get; private set; } = null!;
+    public DateTime StartTime { get; private set; }
+    public int MaxCapacity { get; private set; }
+    public int CurrentBookings { get; private set; }
+
+    // Logik för att kontrollera status
+    public bool CanBook() => CurrentBookings < MaxCapacity;
+    public int AvailableSlots => MaxCapacity - CurrentBookings;
+
+    // DDD-metod: Utför en bokning
+    public void Book()
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public string Trainer { get; set; } = null!;
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public string Intensity { get; set; } = null!;
+        if (!CanBook())
+            throw new InvalidOperationException("Passet är tyvärr fullbokat.");
+
+        CurrentBookings++;
+    }
+
+    // DDD-metod: Hantera avbokning
+    public void Cancel()
+    {
+        if (CurrentBookings > 0)
+            CurrentBookings--;
     }
 }

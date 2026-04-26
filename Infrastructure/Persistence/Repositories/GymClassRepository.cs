@@ -1,44 +1,34 @@
 ﻿using Domain.Abstractions.Repositories;
 using Domain.Aggregates.GymClasses;
+using Infrastructure.Persistence.Context; 
 using Infrastructure.Persistence.Context.Extensions;
-using Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
-
 
 public class GymClassRepository(DataContext context) : IGymClassRepository
 {
     public async Task<IEnumerable<GymClass>> GetAllAsync(CancellationToken ct)
     {
-        // Nu kommer 'context' hittas eftersom den skickas in i klassen ovan
-        var entities = await context.GymClasses.ToListAsync(ct);
-
-        return entities.Select(e => new GymClass
-        {
-            Id = e.Id,
-            Name = e.Name,
-            Trainer = e.Trainer,
-            StartTime = e.StartTime,
-            EndTime = e.EndTime,
-            Intensity = e.Intensity
-        }).ToList();
+        // Ingen manuell Select/Mapping behövs! 
+        // EF Core mappar direkt till Domain.GymClass
+        return await context.GymClasses
+            .AsNoTracking() // Gör det snabbare eftersom vi bara ska läsa datan
+            .ToListAsync(ct);
     }
 
     public async Task<GymClass?> GetByIdAsync(int id, CancellationToken ct)
     {
-        var e = await context.GymClasses.FirstOrDefaultAsync(x => x.Id == id, ct);
-
-        if (e == null) return null;
-
-        return new GymClass
-        {
-            Id = e.Id,
-            Name = e.Name,
-            Trainer = e.Trainer,
-            StartTime = e.StartTime,
-            EndTime = e.EndTime,
-            Intensity = e.Intensity
-        };
+        // Här hämtar vi objektet direkt. 
+        // Eftersom vi ska boka på detta objektet kör vi INTE AsNoTracking här.
+        return await context.GymClasses
+            .FirstOrDefaultAsync(x => x.Id == id, ct);
     }
-} 
+
+    public async Task UpdateAsync(GymClass gymClass, CancellationToken ct)
+    {
+        // Denna metod behövs för att spara ändringen när vi kört gymClass.Book()
+        context.GymClasses.Update(gymClass);
+        await context.SaveChangesAsync(ct);
+    }
+}
