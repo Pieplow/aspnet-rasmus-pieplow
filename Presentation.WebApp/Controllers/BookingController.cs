@@ -7,7 +7,9 @@ using System.Security.Claims;
 
 namespace Presentation.WebApp.Controllers;
 
-[Authorize]
+/*[Authorize]*/
+
+[AllowAnonymous]
 public class BookingController : Controller
 {
     private readonly IBookingService _bookingService;

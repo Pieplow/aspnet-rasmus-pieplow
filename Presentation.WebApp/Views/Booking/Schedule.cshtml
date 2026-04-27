@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Domain.Aggregates.GymClasses.GymClass>
+
+<h2>Schedule</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No classes yet</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Trainer</th>
+                <th>Slots</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.Name</td>
+                    <td>@c.StartTime.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@c.Trainer</td>
+                    <td>@c.AvailableSlots</td>
+
+                    <td>
+                        @if (c.CanBook())
+                        {
+                            <form asp-controller="Booking" asp-action="Book" method="post">
+                                <input type="hidden" name="gymClassId" value="@c.Id" />
+                                <button type="submit">Book</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span>Full</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
