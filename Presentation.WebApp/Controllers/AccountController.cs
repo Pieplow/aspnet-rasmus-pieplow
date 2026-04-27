@@ -1,25 +1,36 @@
-﻿using Application.Account;
-using Application.Account.Commands;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.WebApp.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AccountController(IIdentityService identityService) : ControllerBase
+public class AccountController : Controller
 {
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
+    [HttpGet]
+    public IActionResult Login()
     {
-        
-        var result = await identityService.RegisterUserAsync(command);
+        return View();
+    }
 
-        if (!result.Succeeded)
-        {
-            return BadRequest(new { errors = result.Errors });
-        }
+    [HttpGet]
+    public IActionResult Register()
+    {
+        return View();
+    }
 
-        
-        return Ok(new { userId = result.UserId });
+    [HttpGet]
+    public IActionResult SetPassword()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Login(string email, string password)
+    {
+        return RedirectToAction("Schedule", "Booking");
+    }
+
+    [HttpPost]
+    public IActionResult Register(string email)
+    {
+        return RedirectToAction("Login");
     }
 }
