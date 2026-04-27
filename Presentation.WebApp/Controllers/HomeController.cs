@@ -8,5 +8,19 @@ namespace Presentation.WebApp.Controllers
         {
             return View();
         }
+
+     
+        [HttpPost]
+        public IActionResult Contact(string firstName, string lastName, string email, string message)
+        {
+            TempData["Success"] = "Message sent!";
+            return RedirectToAction("Contact");
+        }
+
+        [Route("contact")]
+        public IActionResult Contact()
+        {
+            return View();
+        }
     }
 }
