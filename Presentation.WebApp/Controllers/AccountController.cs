@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Account;
+using Application.Account.Commands;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.WebApp.Controllers;
 
-public class AccountController : Controller
+public class AccountController(IIdentityService identityService) : Controller
 {
+    // ---------------- GET ----------------
+
     [HttpGet]
     public IActionResult Login()
     {
@@ -19,18 +23,82 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult SetPassword()
     {
+        var email = TempData["Email"] as string;
+
+        if (string.IsNullOrEmpty(email))
+            return RedirectToAction("Register");
+
+        ViewBag.Email = email;
+        TempData.Keep("Email");
+
         return View();
     }
 
+    // ---------------- POST ----------------
+
     [HttpPost]
-    public IActionResult Login(string email, string password)
+    public async Task<IActionResult> Login(string email, string password)
     {
+        if (!ModelState.IsValid)
+            return View();
+
+        var success = await identityService.LoginAsync(email, password);
+
+        if (!success)
+        {
+            ModelState.AddModelError("", "Invalid login");
+            return View();
+        }
+
         return RedirectToAction("Schedule", "Booking");
     }
 
+    // STEP 1: bara email
     [HttpPost]
     public IActionResult Register(string email)
     {
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            ModelState.AddModelError("", "Email is required");
+            return View();
+        }
+
+        TempData["Email"] = email;
+        return RedirectToAction("SetPassword");
+    }
+
+    // STEP 2: skapa user
+    [HttpPost]
+    public async Task<IActionResult> SetPassword(string email, string password)
+    {
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        {
+            ModelState.AddModelError("", "Email and password are required");
+            ViewBag.Email = email;
+            return View();
+        }
+
+        var command = new RegisterUserCommand(email, password);
+        var result = await identityService.RegisterUserAsync(command);
+
+        if (!result.Succeeded)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+
+            ViewBag.Email = email;
+            return View();
+        }
+
         return RedirectToAction("Login");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Logout()
+    {
+        await identityService.LogoutAsync();
+        return RedirectToAction("Index", "Home");
     }
 }

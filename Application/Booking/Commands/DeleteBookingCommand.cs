@@ -1,4 +1,4 @@
 ﻿using Domain.Abstractions;
 
-public record DeleteBookingCommand(int BookingId, Guid UserId);
+public record DeleteBookingCommand(int BookingId, string UserId);
 

@@ -2,9 +2,13 @@ using Application.Bookings;
 using Application.Extensions;
 using Domain.Abstractions.Repositories;
 using Infrastructure.Extensions;
+using Infrastructure.Identity;
 using Infrastructure.Persistence;
+using Infrastructure.Persistence.Context.Extensions;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,11 +34,11 @@ builder.Services.AddScoped<IGymClassRepository, GymClassRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Account/Login";
-    });
+
+builder.Services
+    .AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddAuthorization();
 

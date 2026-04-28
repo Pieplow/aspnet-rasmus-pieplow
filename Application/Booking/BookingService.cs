@@ -32,7 +32,7 @@ public class BookingService : IBookingService
         return Result.Success();
     }
 
-    public async Task<List<BookingResponse>> GetUserBookingsAsync(Guid userId)
+    public async Task<List<BookingResponse>> GetUserBookingsAsync(string userId)
     {
         var all = await _bookingRepository.GetAllAsync();
 
@@ -46,7 +46,7 @@ public class BookingService : IBookingService
             .ToList();
     }
 
-    public async Task<Result> CancelBookingAsync(int bookingId, Guid userId)
+    public async Task<Result> CancelBookingAsync(Guid bookingId, string userId)
     {
         var booking = await _bookingRepository.GetByIdAsync(bookingId);
 

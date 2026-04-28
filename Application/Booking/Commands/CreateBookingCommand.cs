@@ -1,3 +1,3 @@
 ﻿namespace Application.Bookings.Commands;
 
-public record CreateBookingCommand(Guid UserId, int GymClassId);
+public record CreateBookingCommand(string UserId, int GymClassId);

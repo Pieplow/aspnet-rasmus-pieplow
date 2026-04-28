@@ -1,7 +1,7 @@
 ﻿namespace Application.Bookings.Responses;
 
 public record BookingResponse(
-    int Id,
+    Guid Id,
     int GymClassId,
     DateTime BookedAt
 );

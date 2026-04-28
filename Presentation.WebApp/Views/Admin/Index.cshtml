@@ -1,0 +1,84 @@
+﻿<!-- Admin Dashboard -->
+<section class="section__bookings">
+    <div class="container">
+        <header class="section__header-wide">
+            <h2>Admin Dashboard</h2>
+            <p>Manage gym classes and bookings</p>
+        </header>
+
+        <div class="account-dashboard-grid">
+            <!-- Sidebar: Add Form -->
+            <aside class="dashboard-sidebar">
+                <div class="admin-card">
+                    <h3 class="admin-card-title">Add New Class</h3>
+                    <form>
+                        <div class="form-group">
+                            <label>Class Title</label>
+                            <input type="text" placeholder="e.g. Yoga" class="form-input" />
+                        </div>
+                        <div class="form-group">
+                            <label>Date & Time</label>
+                            <input type="datetime-local" class="form-input" />
+                        </div>
+                        <div class="form-group">
+                            <label>Instructor</label>
+                            <input type="text" placeholder="Instructor name" class="form-input" />
+                        </div>
+                        <div class="form-group">
+                            <label>Capacity</label>
+                            <input type="number" placeholder="20" class="form-input" />
+                        </div>
+                        <button type="submit" class="btn accent btn--full">
+                            Create Class +
+                        </button>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- Main: Class Table -->
+            <main class="dashboard-content">
+                <div class="admin-card admin-card--table">
+                    <div class="nav-header">Existing Classes</div>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Class info</th>
+                                    <th>Instructor</th>
+                                    <th>Bookings</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="admin-table-main">Power Yoga</div>
+                                        <div class="admin-table-sub">25 Apr 2026, 09:00</div>
+                                    </td>
+                                    <td>Sarah J.</td>
+                                    <td><span class="admin-badge">18/20</span></td>
+                                    <td>
+                                        <span class="admin-action">⚙️</span>
+                                        <span class="admin-action admin-action--delete">🗑</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="admin-table-main">HIIT Cardio</div>
+                                        <div class="admin-table-sub">26 Apr 2026, 17:30</div>
+                                    </td>
+                                    <td>Mike D.</td>
+                                    <td><span class="admin-badge">20/20 FULL</span></td>
+                                    <td>
+                                        <span class="admin-action">⚙️</span>
+                                        <span class="admin-action admin-action--delete">🗑</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</section>

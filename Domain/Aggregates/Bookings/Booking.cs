@@ -2,14 +2,14 @@
 
 public sealed class Booking
 {
-    public int Id { get; private set; }
-    public Guid UserId { get; private set; }
+    public Guid Id { get; private set; }
+    public string UserId { get; private set; } = null!;
     public int GymClassId { get; private set; }
     public DateTime BookedAt { get; private set; }
 
     private Booking() { } // EF Core
 
-    private Booking(Guid userId, int gymClassId)
+    private Booking(string userId, int gymClassId)
     {
         UserId = userId;
         GymClassId = gymClassId;
@@ -17,7 +17,7 @@ public sealed class Booking
     }
 
     
-    internal Booking(int id, Guid userId, int gymClassId, DateTime bookedAt)
+    internal Booking(Guid id, string userId, int gymClassId, DateTime bookedAt)
     {
         Id = id;
         UserId = userId;
@@ -25,7 +25,7 @@ public sealed class Booking
         BookedAt = bookedAt;
     }
 
-    public static Booking Create(Guid userId, int gymClassId)
+    public static Booking Create(string userId, int gymClassId)
     {
         return new Booking(userId, gymClassId);
     }

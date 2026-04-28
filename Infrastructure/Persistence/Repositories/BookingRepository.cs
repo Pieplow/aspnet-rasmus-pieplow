@@ -3,12 +3,12 @@ using Infrastructure.Persistence.Context.Extensions;
 using Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
-public class BookingRepository : RepositoryBase<Booking, int, BookingEntity, DataContext>, IBookingRepository
+public class BookingRepository : RepositoryBase<Booking, Guid, BookingEntity, DataContext>, IBookingRepository
 {
     public BookingRepository(DataContext context) : base(context) { }
 
     // 1. Mappa ID
-    protected override int GetId(Booking model) => model.Id;
+    protected override Guid GetId(Booking model) => model.Id;
 
     // 2. Mappa till Entity (Infrastruktur)
     protected override BookingEntity ToEntity(Booking model) => new()
@@ -31,7 +31,7 @@ public class BookingRepository : RepositoryBase<Booking, int, BookingEntity, Dat
     }
 
     // Din unika metod
-    public async Task<bool> ExistsAsync(Guid userId, int gymClassId, CancellationToken ct = default)
+    public async Task<bool> ExistsAsync(string userId, int gymClassId, CancellationToken ct = default)
     {
         return await Set.AnyAsync(b => b.UserId == userId && b.GymClassId == gymClassId, ct);
     }

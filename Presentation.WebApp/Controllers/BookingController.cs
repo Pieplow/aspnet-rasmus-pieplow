@@ -9,7 +9,7 @@ namespace Presentation.WebApp.Controllers;
 
 /*[Authorize]*/
 
-[AllowAnonymous]
+[Authorize]
 public class BookingController : Controller
 {
     private readonly IBookingService _bookingService;
@@ -43,7 +43,7 @@ public class BookingController : Controller
             return RedirectToAction("Login", "Account");
         }
 
-        var userId = Guid.Parse(claim);
+        var userId = claim;
         var bookings = await _bookingService.GetUserBookingsAsync(userId);
 
         return View(bookings);
@@ -56,7 +56,7 @@ public class BookingController : Controller
         var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(claim)) return Unauthorized();
 
-        var userId = Guid.Parse(claim);
+        var userId = claim;
         var command = new CreateBookingCommand(userId, gymClassId);
         var result = await _bookingService.BookClassAsync(command);
 
