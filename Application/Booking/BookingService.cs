@@ -1,8 +1,10 @@
 ﻿using Application.Bookings.Commands;
 using Application.Bookings.Responses;
 using Domain.Abstractions;
+using Domain.Abstractions.Repositories;
 using Domain.Aggregates.Bookings;
 using Microsoft.Extensions.Caching.Memory;
+using System.Linq;
 
 namespace Application.Bookings;
 
@@ -12,9 +14,15 @@ public class BookingService : IBookingService
 
     private readonly IMemoryCache _cache;
 
-    public BookingService(IBookingRepository bookingRepository, IMemoryCache cache)
+    private readonly IGymClassRepository _gymClassRepository;
+
+    public BookingService(
+        IBookingRepository bookingRepository,
+        IGymClassRepository gymClassRepository,
+        IMemoryCache cache)
     {
         _bookingRepository = bookingRepository;
+        _gymClassRepository = gymClassRepository;
         _cache = cache;
     }
 
@@ -34,17 +42,28 @@ public class BookingService : IBookingService
 
     public async Task<List<BookingResponse>> GetUserBookingsAsync(string userId)
     {
-        var all = await _bookingRepository.GetAllAsync();
+        var bookings = await _bookingRepository.GetAllAsync();
+        var classes = await _gymClassRepository.GetAllAsync();
 
-        return all
+        return bookings
             .Where(b => b.UserId == userId)
-            .Select(b => new BookingResponse(
-                b.Id,
-                b.GymClassId,
-                b.BookedAt
-            ))
+            .Select(b =>
+            {
+                var gymClass = classes.FirstOrDefault(c => c.Id == b.GymClassId);
+
+                return new BookingResponse(
+                    b.Id,
+                    b.GymClassId,
+                    gymClass?.Name ?? "Unknown",
+                    gymClass?.Trainer ?? "Unknown",
+                    gymClass?.StartTime ?? DateTime.MinValue,
+                    b.BookedAt
+                );
+            })
             .ToList();
     }
+
+
 
     public async Task<Result> CancelBookingAsync(Guid bookingId, string userId)
     {

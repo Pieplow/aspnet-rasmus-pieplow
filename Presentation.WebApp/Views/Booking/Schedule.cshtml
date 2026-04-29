@@ -31,6 +31,8 @@ else
                         @if (c.CanBook())
                         {
                             <form asp-controller="Booking" asp-action="Book" method="post">
+                                @Html.AntiForgeryToken()
+
                                 <input type="hidden" name="gymClassId" value="@c.Id" />
                                 <button type="submit">Book</button>
                             </form>

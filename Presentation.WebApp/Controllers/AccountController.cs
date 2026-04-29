@@ -7,10 +7,10 @@ namespace Presentation.WebApp.Controllers;
 public class AccountController(IIdentityService identityService) : Controller
 {
     // ---------------- GET ----------------
-
     [HttpGet]
-    public IActionResult Login()
+    public IActionResult Login(string? returnUrl = null)
     {
+        ViewData["ReturnUrl"] = returnUrl;
         return View();
     }
 
@@ -35,9 +35,8 @@ public class AccountController(IIdentityService identityService) : Controller
     }
 
     // ---------------- POST ----------------
-
     [HttpPost]
-    public async Task<IActionResult> Login(string email, string password)
+    public async Task<IActionResult> Login(string email, string password, string? returnUrl = null)
     {
         if (!ModelState.IsValid)
             return View();
@@ -47,8 +46,12 @@ public class AccountController(IIdentityService identityService) : Controller
         if (!success)
         {
             ModelState.AddModelError("", "Invalid login");
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
+        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return Redirect(returnUrl);
 
         return RedirectToAction("Schedule", "Booking");
     }

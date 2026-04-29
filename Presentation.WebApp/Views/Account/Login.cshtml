@@ -14,11 +14,13 @@
             <div class="divider">OR CONTINUE WITH</div>
 
             <form asp-controller="Account" asp-action="Login" method="post">
-
+                <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
                 <div class="form-group">
                     <label>Email Address *</label>
                     <input name="email" class="form-input" placeholder="Enter Email Address" />
                 </div>
+
+                
 
                 <div class="form-group">
                     <div class="flex-between">

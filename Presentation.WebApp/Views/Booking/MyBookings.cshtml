@@ -1,4 +1,6 @@
-﻿<!-- My Bookings Page -->
+﻿@model List<Application.Bookings.Responses.BookingResponse>
+
+<!-- My Bookings Page -->
 <section class="section__bookings">
     <div class="container">
         <header class="section__header-wide">
@@ -24,13 +26,14 @@
                     <div class="booking-card">
                         <span class="status-tag">Confirmed</span>
 
-                        <h4>@booking.Title</h4>
+                        <h4>@booking.GymClassName</h4>
 
                         <div class="info">
-                            <span>📅 @booking.BookedAt.ToString("yyyy-MM-dd")</span>
-                            <span>⏰ @booking.Time</span>
-                            <span>👤 @booking.Instructor</span>
+                            <span>@booking.StartTime.ToString("yyyy-MM-dd HH:mm")</span>
+                            <span>@booking.Trainer</span>
                         </div>
+
+
 
                         <div class="booking-card-footer">
                             <form asp-action="Cancel" method="post">

@@ -14,10 +14,10 @@
                         <a asp-controller="Home" asp-action="Index" fragment="fitness-centers">Fitness Centers</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-controller="Memberships" asp-action="Memberships">Memberships</a>
+                        <a asp-controller="Memberships" asp-action="Index">Memberships</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-controller="Schedule" asp-action="Index" fragment="training">Training</a>
+                        <a asp-controller="Booking" asp-action="Schedule" fragment="training">Training</a>
                     </li>
                     <li class="menu-item">
                         <a asp-controller="Home" asp-action="Index" fragment="store">Store</a>
@@ -28,10 +28,10 @@
             <nav class="account-menu">
                 <ul class="menu">
                     <li class="menu-item">
-                        <a class="menu-item-link" href="">Become Member</a>
+                        <a class="menu-item-link" asp-controller="Account" asp-action="Register">Become Member</a>
                     </li>
                     <li class="menu-item">
-                        <a class="btn accent" asp-controller="Auth" asp-action="SignIn">Sign In</a>
+                        <a class="btn accent" asp-controller="Account" asp-action="Login">Sign In</a>
                     </li>
                 </ul>
             </nav>

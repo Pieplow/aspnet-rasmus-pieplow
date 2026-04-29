@@ -21,6 +21,27 @@ public sealed class MembershipService(IMembershipRepository repo) : IMembershipS
             m.MonthlyClasses)).ToList();
     }
 
+    public async Task<MembershipResponse?> GetByUserIdAsync(int userId, CancellationToken ct = default)
+    {
+        var memberships = await repo.GetAllAsync(ct);
+
+        var membership = memberships.FirstOrDefault(m => m.UserId == userId);
+
+        if (membership == null)
+            return null;
+
+        return new MembershipResponse(
+            membership.Id,
+            membership.Title,
+            membership.Description,
+            membership.Benefits,
+            membership.Price,
+            membership.MonthlyClasses
+        );
+    }
+
+
+
     // CREATE
     public async Task CreateMembershipAsync(CreateMembershipCommand command, CancellationToken ct = default)
     {
