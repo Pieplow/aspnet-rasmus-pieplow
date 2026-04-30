@@ -3,7 +3,7 @@
 
 public class MembershipViewModel
 {
-    // Listan med medlemskap från databasen
+    // Lista medlemskap från databasen
     public IEnumerable<Application.Memberships.Responses.MembershipResponse> Memberships { get; set; } = [];
 
     // Dynamiska fält för CTA-boxen

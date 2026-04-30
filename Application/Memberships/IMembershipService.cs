@@ -11,5 +11,5 @@ public interface IMembershipService
 
     Task CreateMembershipAsync(CreateMembershipCommand command, CancellationToken ct = default);
 
-    Task<MembershipResponse?> GetByUserIdAsync(int userId, CancellationToken ct = default);
+    Task<MembershipResponse?> GetByUserIdAsync(string userId, CancellationToken ct);
 }

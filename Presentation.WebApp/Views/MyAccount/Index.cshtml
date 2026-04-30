@@ -19,6 +19,15 @@
                     <img src=""
                          alt="Profile">
                 </div>
+                @if (Model.Membership != null)
+                {
+                    <div class="membership-card">
+                        <h3>Your Membership</h3>
+                        <h4>@Model.Membership.Title</h4>
+                        <p>@Model.Membership.Description</p>
+                        <p>@Model.Membership.Price kr</p>
+                    </div>
+                }
 
                 <nav class="sidebar-nav-card">
                     <div class="nav-header">Menu Options</div>

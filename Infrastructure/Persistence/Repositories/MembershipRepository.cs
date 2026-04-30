@@ -15,12 +15,12 @@ public sealed class MembershipRepository(DataContext context)
         entity.Description = model.Description;
         entity.Price = model.Price;
         entity.MonthlyClasses = model.MonthlyClasses;
-        // Här kan du även hantera Benefits om det behövs
+        
     }
 
     protected override int GetId(Membership model)
     {
-        // Nu när model.Id är en int, returnerar vi den direkt!
+        
         return model.Id;
     }
 
@@ -28,8 +28,6 @@ public sealed class MembershipRepository(DataContext context)
     {
         var benefits = entity.Benefits.Select(b => b.Benefit).ToList();
 
-        // Vi använder den nya Create-metoden som tar int (UserId och ev. Id)
-        // OBS: Om din Create-metod kräver UserId, se till att entity har det fältet
         var model = Membership.Create(
             entity.UserId,
             entity.Title,
@@ -46,7 +44,7 @@ public sealed class MembershipRepository(DataContext context)
     {
         var entity = new MembershipEntity
         {
-            Id = model.Id, // Ingen int.Parse behövs längre!
+            Id = model.Id, 
             UserId = model.UserId,
             Title = model.Title,
             Description = model.Description,

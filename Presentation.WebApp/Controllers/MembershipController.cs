@@ -1,8 +1,8 @@
 ﻿using Application.Memberships;
 using Application.Memberships.Commands;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.WebApp.ViewModels; 
-
+using Presentation.WebApp.ViewModels;
+using System.Security.Claims;
 
 namespace Presentation.WebApp.Controllers;
 
@@ -50,37 +50,39 @@ public async Task<IActionResult> Index(CancellationToken ct)
 
 
 
-[HttpPost]
-
-public async Task<IActionResult> Create(CreateMembershipCommand command, CancellationToken ct)
-
-{
-
-    if (!ModelState.IsValid) return View(command);
-
-
-
-    try
-
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(
+        string title,
+        string description,
+        decimal price,
+        int monthlyClasses,
+        CancellationToken ct)
     {
+        var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(userIdString))
+            return RedirectToAction("Login", "Account");
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        
+        var command = new CreateMembershipCommand(
+            userId!,
+            title,
+            description,
+            new List<string>(),
+            price,
+            monthlyClasses
+        );
 
         await membershipService.CreateMembershipAsync(command, ct);
 
-        return RedirectToAction(nameof(Index));
+        TempData["Success"] = "Membership activated";
 
+        return RedirectToAction("MyBookings", "Booking");
     }
-
-    catch (Exception ex) // Tips: Fånga även dina egna DomainExceptions här sen
-
-    {
-
-        ModelState.AddModelError("", ex.Message);
-
-        return View(command);
-
-    }
-
 }
 
-}
+
 

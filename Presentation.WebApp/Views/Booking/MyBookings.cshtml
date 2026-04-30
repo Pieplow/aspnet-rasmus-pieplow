@@ -1,5 +1,7 @@
 ﻿@model List<Application.Bookings.Responses.BookingResponse>
 
+
+
 <!-- My Bookings Page -->
 <section class="section__bookings">
     <div class="container">
@@ -7,14 +9,26 @@
             <h2>My Booked Classes</h2>
             <p>Manage your upcoming training sessions</p>
         </header>
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert-success">
+                @TempData["Success"]
+            </div>
+        }
 
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert-error">
+                @TempData["Error"]
+            </div>
+        }
         <div class="bookings-grid">
             <!-- Booking Card -->
             @if (Model?.Any() != true)
             {
                 <div class="booking-card booking-card--empty">
                     <p>No bookings yet</p>
-                    <a href="/Classes" class="btn accent">
+                    <a asp-controller="Booking" asp-action="Schedule" class="btn accent">
                         Browse Classes →
                     </a>
                 </div>
@@ -36,7 +50,7 @@
 
 
                         <div class="booking-card-footer">
-                            <form asp-action="Cancel" method="post">
+                            <form asp-controller="Booking" asp-action="Cancel" method="post">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="bookingId" value="@booking.Id" />
                                 <button type="submit" class="delete-link">
@@ -50,3 +64,13 @@
         </div>
     </div>
 </section>
+
+
+@section Scripts {
+    <script>
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert-success, .alert-error');
+            alerts.forEach(a => a.style.display = 'none');
+        }, 3000);
+    </script>
+}

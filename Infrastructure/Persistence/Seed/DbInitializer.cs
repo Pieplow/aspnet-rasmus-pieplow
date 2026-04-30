@@ -12,15 +12,17 @@ public static class DbInitializer
         modelBuilder.Entity<MembershipEntity>().HasData(
             new MembershipEntity
             {
-                Id = 1, 
-                Title = "Silver", 
+                Id = 1,
+                UserId = "seed-user-silver", // LÄGG TILL DENNA
+                Title = "Silver",
                 Price = 395,
-                Description = "Basic membership" // Glöm inte Description om den är obligatorisk
+                Description = "Basic membership"
             },
             new MembershipEntity
             {
                 Id = 2,
-                Title = "Gold", 
+                UserId = "seed-user-gold", // LÄGG TILL DENNA
+                Title = "Gold",
                 Price = 595,
                 Description = "Premium membership"
             }
@@ -40,7 +42,7 @@ public static class DbInitializer
              Id = 1,
              Name = "Yoga Flow",
              Trainer = "Maria",
-             // Vi använder fasta värden för att vara 100% säkra mot SQL Server
+             
              StartTime = new DateTime(2026, 05, 01, 08, 00, 00),
              CurrentBookings = 0,
              MaxCapacity = 20

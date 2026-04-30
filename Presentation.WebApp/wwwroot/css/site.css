@@ -924,12 +924,19 @@ body {
     font-size: 13px;
 }
 
-/* FAQ */
+/* FAQ Section (Themed to your ROOT) */
 .section__faq .container {
-    background: var(--section-bg-light);
-    border-radius: 18px;
-    padding: 40px 20px;
+    background: #EFEFEF;
+    border-radius: 12px;
+    padding: 30px 15px;
     margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .section__faq .container {
+        padding: 60px 40px;
+        border-radius: 20px;
+    }
 }
 
 .faq-grid {
@@ -937,53 +944,45 @@ body {
     gap: 20px;
 }
 
-.faq-image img {
-    border-radius: 16px;
-}
-
-.faq-content h2 {
-    margin: 10px 0 20px;
-}
-
-.faq-item {
-    padding: 14px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-}
-
-    .faq-item h4 {
-        font-size: 14px;
-    }
-
-    .faq-item p {
-        margin-top: 8px;
-        font-size: 13px;
-        color: var(--grey-color);
-    }
-
-/* Desktop */
 @media (min-width: 768px) {
-
-    .membership-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .membership-benefits {
-        flex-direction: row;
-        justify-content: center;
-        gap: 20px;
-    }
-
     .faq-grid {
         grid-template-columns: 1fr 1fr;
         align-items: center;
     }
 }
 
+.faq-image img {
+    border-radius: 16px;
+    width: 100%;
+}
 
-.page-title {
-    text-align: center;
-    margin-bottom: 20px;
+.faq-content h2 {
+    margin: 10px 0 20px;
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+}
+
+.faq-item {
+    padding: 20px 14px;
+    border-bottom: 1px solid var(--light-color);
+    cursor: pointer;
+    background: var(--white-color);
+    margin-bottom: 8px;
+    border-radius: 12px;
+}
+
+.faq-item h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.faq-item p {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--grey-color);
+    line-height: 1.6;
 }
 
 /* GRID */
@@ -1962,4 +1961,24 @@ textarea {
 textarea {
     min-height: 150px;
     resize: vertical;
+}
+
+/*Confirmed text cancel booking*/
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
 }

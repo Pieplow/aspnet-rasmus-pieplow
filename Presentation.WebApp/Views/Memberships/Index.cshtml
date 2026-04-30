@@ -6,132 +6,126 @@
 
 
 
+<!-- Membership Section -->
 <section class="section__membership">
-  <div class="container">
-
-    <div class="section__header" style="text-align:center;">
-      <h2>Our Membership Offers</h2>
-    </div>
+    <div class="container">
+        <div class="section__header">
+            <h2>Our Membership Offers</h2>
+        </div>
 
         <div class="membership-grid">
-
-        <!-- STANDARD -->
-      <div class="membership-card">
-
-  <!-- ICON -->
-  <div class="card-icon">⚙️</div>
-
-  <!-- TOP -->
-  <div class="card-top">
-    <h3>Standard Membership</h3>
-
-    <ul class="features">
-      <li>Standard Locker</li>
-      <li>High-energy group fitness classes</li>
-      <li>Motivating & supportive environment</li>
-    </ul>
-  </div>
-
-  <!-- BOTTOM -->
-  <div class="card-bottom">
-    <div class="price-row">
-      <div>
-        <div class="price">495.00</div>
-        <div class="price-sub">/monthly</div>
-      </div>
-
-      <a href="#" class="btn accent">Join Now</a>
-    </div>
-
-    <p class="trial">Try Any Membership Free for 1 Week</p>
-  </div>
-
-</div>
-
-        <!-- PREMIUM -->
-        <div class="membership-card highlight">
-            <div class="card-top">
-            <h3>Premium Membership</h3>
-            <ul>
-                <li>Priority Support & Premium Locker</li>
-                <li>High-energy group fitness classes</li>
-                <li>Motivating & supportive environment</li>
-            </ul>
+            <!-- STANDARD -->
+            <div class="membership-card">
+                <div class="card-icon">⚙️</div>
+                <div class="card-top">
+                    <h3>Standard Membership</h3>
+                    <ul class="features">
+                        <li>Standard Locker</li>
+                        <li>High-energy group fitness classes</li>
+                        <li>Motivating & supportive environment</li>
+                    </ul>
+                </div>
+                <div class="card-bottom">
+                    <div class="price-row">
+                        <div class="price-group">
+                            <div class="price">495.00 <span>/monthly</span></div>
+                        </div>
+                        <form asp-controller="Memberships" asp-action="Create" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="Title" value="Standard Membership" />
+                            <input type="hidden" name="Description" value="Standard Locker, high-energy group fitness classes" />
+                            <input type="hidden" name="Price" value="495" />
+                            <input type="hidden" name="MonthlyClasses" value="0" />
+                            <button type="submit" class="btn accent">Join Now</button>
+                        </form>
+                    </div>
+                    <p class="trial">Try Any Membership Free for 1 Week</p>
+                </div>
             </div>
 
-            <div class="card-bottom">
-            <div class="price">595.00 <span>/monthly</span></div>
-            <div class="price-sub">+ Monthly 20 Classes</div>
-            <a href="#" class="btn accent">Join Now</a>
-            <p class="trial">Try Any Membership Free for 1 Week</p>
+            <!-- PREMIUM -->
+            <div class="membership-card highlight">
+                <div class="card-icon">⚙️</div>
+                <div class="card-top">
+                    <h3>Premium Membership</h3>
+                    <ul class="features">
+                        <li>Priority Support & Premium Locker</li>
+                        <li>High-energy group fitness classes</li>
+                        <li>Motivating & supportive environment</li>
+                    </ul>
+                </div>
+                <div class="card-bottom">
+                    <div class="price-row">
+                        <div class="price-group">
+                            <div class="price">595.00 <span>/monthly</span></div>
+                            <div class="price-sub">+ Monthly 20 Classes</div>
+                        </div>
+                        <form asp-controller="Memberships" asp-action="Create" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="Title" value="Premium Membership" />
+                            <input type="hidden" name="Description" value="Premium locker, priority support, group classes" />
+                            <input type="hidden" name="Price" value="595" />
+                            <input type="hidden" name="MonthlyClasses" value="20" />
+                            <button type="submit" class="btn accent">Join Now</button>
+                        </form>
+                    </div>
+                    <p class="trial">Try Any Membership Free for 1 Week</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="membership-cta">
+                <h3>Get Your Membership</h3>
+                <p>Our memberships give you access to all equipment, personal training.</p>
+                <p class="phone">Call Us At: (+46) 8 410 521 00</p>
+                <a href="#" class="btn accent">Call Us Today</a>
             </div>
         </div>
 
-        <!-- CTA -->
-        <div class="membership-cta">
-            <h3>Get Your Membership</h3>
-            <p>Our memberships give you access to all equipment, personal training.</p>
-
-            <p class="phone">Call Us At: (+46) 8 410 521 00</p>
-
-            <a href="#" class="btn accent">Call Us Today</a>
+        <div class="membership-benefits">
+            <span>✔ Get 30 day free trial</span>
+            <span>✔ No hidden fees</span>
+            <span>✔ You can cancel anytime</span>
         </div>
-
-        </div>
-
-     
-
     </div>
 
-    <!-- Bottom info -->
-    <div class="membership-benefits">
-      <span>✔ Get 30 day free trial</span>
-      <span>✔ No hidden fees</span>
-      <span>✔ You can cancel anytime</span>
-    </div>
+                <!-- FAQ -->
+                <div class="faq-content">
+                    <span class="section-title accent">Frequently Asked Questions</span>
+                    <h2>Common questions about gym and training</h2>
 
-</section>
+                    <div class="faq-list">
+                        <div class="faq-item active">
+                            <h4>Q1. Do I need prior gym experience to Join CoreFitness? <span class="arrow">▲</span></h4>
+                            <div class="faq-answer">
+                                <p>No, GymPro is designed for all fitness levels. Our trainers guide beginners with proper techniques and structured workout plans to help them start safely and confidently.</p>
+                                <ul>
+                                    <li>Every new member receives a personalized introduction to equipments</li>
+                                    <li>Workouts are designed to grow with you, ensuring beginners can start safely</li>
+                                </ul>
+                            </div>
+                        </div>
 
-<section class="section__faq">
-  <div class="container">
+                        <div class="faq-item">
+                            <h4>Q2. What facilities are included with the membership? <span class="arrow">▼</span></h4>
+                        </div>
 
-    <div class="faq-grid">
+                        <div class="faq-item">
+                            <h4>Q3. Can I try them gym before taking a membership? <span class="arrow">▼</span></h4>
+                        </div>
 
-      <!-- Image -->
-      <div class="faq-image">
-        <img src="" alt="Gym training">
-      </div>
+                        <div class="faq-item">
+                            <h4>Q4. Are there group workout programs available? <span class="arrow">▼</span></h4>
+                        </div>
 
-      <!-- FAQ -->
-      <div class="faq-content">
+                        <div class="faq-item">
+                            <h4>Q5. Is nutrition guidance included in the plans? <span class="arrow">▼</span></h4>
+                        </div>
+                    </div>
+                </div>
+        
+    </section>
+    
 
-        <span class="section-title accent">Frequently Asked Questions</span>
-        <h2>Common questions about gym and training</h2>
-
-        <div class="faq-item active">
-          <h4>Do I need prior gym experience?</h4>
-          <p>No, our gym is designed for all levels. Beginners get full guidance.</p>
-        </div>
-
-        <div class="faq-item">
-          <h4>What facilities are included?</h4>
-        </div>
-
-        <div class="faq-item">
-          <h4>Can I try the gym before joining?</h4>
-        </div>
-
-        <div class="faq-item">
-          <h4>Are group workouts available?</h4>
-        </div>
-
-        <div class="faq-item">
-          <h4>Is nutrition guidance included?</h4>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-</section>
+  
+<

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Application.Bookings;
 using Application.Memberships;
 using Presentation.WebApp.ViewModels;
 
@@ -23,22 +22,15 @@ public class MyAccountController : Controller
 
     public async Task<IActionResult> Index()
     {
-      
-
+        // 1. Hämta UserId som string (vilket NameIdentifier alltid är)
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (string.IsNullOrEmpty(userId))
             return RedirectToAction("Login", "Account");
 
-        if (!int.TryParse(userId, out var userIdInt))
-        {
-            return RedirectToAction("Login", "Account");
-        }
-
-        var bookings = await _bookingService.GetUserBookingsAsync(userId); 
-        var membership = await _membershipService.GetByUserIdAsync(userIdInt); 
-
-        
+      
+        var bookings = await _bookingService.GetUserBookingsAsync(userId);
+        var membership = await _membershipService.GetByUserIdAsync(userId, HttpContext.RequestAborted);
 
         var vm = new MyAccountViewModel
         {

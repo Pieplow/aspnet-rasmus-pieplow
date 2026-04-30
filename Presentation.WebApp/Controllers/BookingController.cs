@@ -68,5 +68,28 @@ public class BookingController : Controller
 
         TempData["Success"] = "Bokningen genomförd!";
         return RedirectToAction("MyBookings");
+
+        
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Cancel(Guid bookingId)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(userId))
+            return RedirectToAction("Login", "Account");
+
+        var result = await _bookingService.CancelBookingAsync(bookingId, userId);
+
+        if (!result.IsSuccess)
+        {
+            TempData["Error"] = result.ErrorMessage;
+            return RedirectToAction("MyBookings");
+        }
+
+        TempData["Success"] = "Booking cancelled";
+        return RedirectToAction("MyBookings"); // 🔥 VIKTIG
     }
 }
