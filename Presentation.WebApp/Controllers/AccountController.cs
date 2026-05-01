@@ -1,6 +1,11 @@
 ﻿using Application.Account;
 using Application.Account.Commands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.WebApp.ViewModels;
+using System.Security.Claims;
+
+
 
 namespace Presentation.WebApp.Controllers;
 
@@ -87,9 +92,7 @@ public class AccountController(IIdentityService identityService) : Controller
         if (!result.Succeeded)
         {
             foreach (var error in result.Errors)
-            {
                 ModelState.AddModelError("", error);
-            }
 
             ViewBag.Email = email;
             return View();
@@ -99,8 +102,50 @@ public class AccountController(IIdentityService identityService) : Controller
     }
 
     [HttpPost]
+    [Authorize]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
+    {   
+        await identityService.LogoutAsync();
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> MyAccount()
     {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null) 
+        {
+            return Unauthorized();
+        } 
+        var user = await identityService.GetMyAccountAsync(userId);
+
+        var vm = new MyAccountViewModel
+        {
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            PhoneNumber = user.PhoneNumber
+        };
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    public async Task<IActionResult> UpdateProfile(string firstName, string lastName, string phoneNumber)
+    {
+        await identityService.UpdateProfileAsync(User, firstName, lastName, phoneNumber);
+        return RedirectToAction("Index", "MyAccount");
+    }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> DeleteAccount()
+    {
+        await identityService.DeleteCurrentUserAsync(User);
         await identityService.LogoutAsync();
         return RedirectToAction("Index", "Home");
     }

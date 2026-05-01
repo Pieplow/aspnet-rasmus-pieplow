@@ -5,7 +5,7 @@ public sealed class Membership
     public int Id { get; private set; }
 
     public string UserId { get; private set; } = null!;
-
+    public string Email { get; private set; } = null!;
     public string Title { get; private set; } = null!;
     public string Description { get; private set; } = null!;
     public List<string> Benefits { get; private set; } = new();

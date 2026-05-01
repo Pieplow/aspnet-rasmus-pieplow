@@ -3,6 +3,7 @@ using Application.Account.Commands;
 using Application.Account.Responses;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Infrastructure.Services;
 
@@ -21,7 +22,7 @@ public class IdentityService(
         var existingUser = await userManager.FindByEmailAsync(command.Email);
 
         if (existingUser is not null)
-            return new RegisterUserResponse(false, null, ["En anvädnare med samma e-post existerar redan."]);
+            return new RegisterUserResponse(false, null, ["En användare med samma e-post existerar redan."]);
 
         var user = new ApplicationUser
         {
@@ -44,8 +45,13 @@ public class IdentityService(
         if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             return false;
 
+        var user = await userManager.FindByEmailAsync(email);
+
+        if (user == null)
+            return false;
+
         var result = await signInManager.PasswordSignInAsync(
-            email,
+            user.UserName,
             password,
             isPersistent: false,
             lockoutOnFailure: false);
@@ -56,5 +62,48 @@ public class IdentityService(
     public async Task LogoutAsync()
     {
         await signInManager.SignOutAsync();
+    }
+
+    public async Task UpdateProfileAsync(ClaimsPrincipal userPrincipal, string firstName, string lastName, string phoneNumber)
+    {
+        var user = await userManager.GetUserAsync(userPrincipal);
+
+        if (user == null)
+            return;
+
+        user.FirstName = firstName;
+        user.LastName = lastName;
+        user.PhoneNumber = phoneNumber;
+
+        await userManager.UpdateAsync(user);
+    }
+
+    public async Task DeleteCurrentUserAsync(ClaimsPrincipal userPrincipal)
+    {
+        var user = await userManager.GetUserAsync(userPrincipal);
+
+        if (user == null)
+            return;
+
+        await userManager.DeleteAsync(user);
+    }
+
+    public async Task<MyAccountResponse> GetMyAccountAsync(string userId)
+    {
+        if (string.IsNullOrEmpty(userId))
+            return new MyAccountResponse();
+
+        var user = await userManager.FindByIdAsync(userId);
+
+        if (user == null)
+            return new MyAccountResponse();
+
+        return new MyAccountResponse
+        {
+            Email = user.Email ?? "",
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            PhoneNumber = user.PhoneNumber
+        };
     }
 }

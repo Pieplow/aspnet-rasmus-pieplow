@@ -1,6 +1,5 @@
 ﻿using Application.Account;
 using Infrastructure.Identity;
-using Infrastructure.Persistence.Context;
 using Infrastructure.Persistence.Context.Extensions;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;

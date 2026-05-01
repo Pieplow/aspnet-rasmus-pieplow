@@ -1,49 +1,84 @@
 ﻿@model IEnumerable<Domain.Aggregates.GymClasses.GymClass>
 
-<h2>Schedule</h2>
-
-@if (Model == null || !Model.Any())
-{
-    <p>No classes yet</p>
-}
-else
-{
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Trainer</th>
-                <th>Slots</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var c in Model)
+<section class="section__schedule">
+    <div class="container">
+        <div class="schedule-header">
+            <div>
+                <h2>Training Schedule</h2>
+                <p style="color: var(--grey-color); font-size: 14px;">Book your favorite classes and track your progress</p>
+            </div>
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                <tr>
-                    <td>@c.Name</td>
-                    <td>@c.StartTime.ToString("yyyy-MM-dd HH:mm")</td>
-                    <td>@c.Trainer</td>
-                    <td>@c.AvailableSlots</td>
+                <a asp-controller="MyAccount" asp-action="Index" class="btn accent">
+                    My Account →
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" class="btn accent">
+                    Sign In
+                </a>
+            }
+        </div>
 
-                    <td>
-                        @if (c.CanBook())
+        <div class="schedule-card">
+            <div class="schedule-table-wrapper">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Class & Time</th>
+                            <th>Trainer</th>
+                            <th>Availability</th>
+                            <th style="text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model == null || !Model.Any())
                         {
-                            <form asp-controller="Booking" asp-action="Book" method="post">
-                                @Html.AntiForgeryToken()
-
-                                <input type="hidden" name="gymClassId" value="@c.Id" />
-                                <button type="submit">Book</button>
-                            </form>
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 2rem;">No classes yet</td>
+                            </tr>
                         }
                         else
                         {
-                            <span>Full</span>
+                            @foreach (var c in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="class-name">@c.Name</span>
+                                        <span class="class-time">@c.StartTime.ToString("MMM dd • HH:mm")</span>
+                                    </td>
+                                    <td>
+                                        <div class="trainer-info">
+                                            <span>@c.Trainer</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @* Logik för att visa "low slots" om det är färre än 5 kvar *@
+                                        <div class="slots-count @(c.AvailableSlots > 0 && c.AvailableSlots < 5 ? "low" : "")">
+                                            <span>@c.AvailableSlots Slots left</span>
+                                        </div>
+                                    </td>
+                                    <td style="text-align: right;">
+                                        @if (c.CanBook())
+                                        {
+                                            <form asp-controller="Booking" asp-action="Book" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="gymClassId" value="@c.Id" />
+                                                <button type="submit" class="btn btn-book">Book Now</button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <span class="status-tag-full">Fully Booked</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
                         }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

@@ -34,6 +34,11 @@ builder.Services.AddScoped<IGymClassRepository, GymClassRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/account/login";
+});
+
 
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>()

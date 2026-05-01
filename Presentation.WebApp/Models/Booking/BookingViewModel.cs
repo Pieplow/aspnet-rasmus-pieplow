@@ -10,6 +10,6 @@ public class GymClass
 {
     public string Name { get; set; } = null!;
     public string Trainer { get; set; } = null!;
-    public string Time { get; set; } = null!;
+    public DateTime Time { get; set; } 
     public string Intensity { get; set; } = null!;
 }

@@ -45,7 +45,7 @@ public sealed class MembershipService(IMembershipRepository repo) : IMembershipS
     // CREATE
     public async Task CreateMembershipAsync(CreateMembershipCommand command, CancellationToken ct = default)
     {
-        
+
         var membership = Membership.Create(
             command.UserId,
             command.Title,

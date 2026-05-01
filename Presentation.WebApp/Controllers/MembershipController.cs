@@ -22,7 +22,7 @@ public async Task<IActionResult> Index(CancellationToken ct)
 
 
 
-    // Skapar ViewModel och fyll den med data (inklusive CTA:n)
+   
 
     var viewModel = new MembershipViewModel
 
@@ -42,7 +42,7 @@ public async Task<IActionResult> Index(CancellationToken ct)
 
 
 
-    // Skicka ViewModel till vyn istället för bara listan
+  
 
     return View(viewModel);
 
@@ -59,14 +59,12 @@ public async Task<IActionResult> Index(CancellationToken ct)
         int monthlyClasses,
         CancellationToken ct)
     {
-        var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        if (string.IsNullOrEmpty(userIdString))
-            return RedirectToAction("Login", "Account");
-
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        
+        if (string.IsNullOrEmpty(userId))
+            return RedirectToAction("Login", "Account");
+
+
         var command = new CreateMembershipCommand(
             userId!,
             title,

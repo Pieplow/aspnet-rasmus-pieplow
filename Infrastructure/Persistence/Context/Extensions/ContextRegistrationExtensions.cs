@@ -1,47 +1,38 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.Sqlite;
 
+// Se till att DataContext hittas (lägg till dess namespace om det behövs)
+using Infrastructure.Persistence.Context;
 
 
 namespace Infrastructure.Persistence.Context.Extensions;
+
 public static class ContextRegistrationExtensions
 {
-    public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration, IHostEnvironment env)
+    public static IServiceCollection AddDbContext(
+        this IServiceCollection services,
+        IConfiguration configuration,
+        IHostEnvironment env)
     {
-        if (env.IsDevelopment())
-        { 
-            Console.WriteLine("Development environment detected. Using in-memory SQLite database.");
-            services.AddSingleton<SqliteConnection>(_ =>
-            {
-                var connection = new SqliteConnection("Data Source=:memory:;");
-                connection.Open();
-                return connection;
-            });
-
-            services.AddDbContext<DataContext>((sp, options) =>
-                {
-                    var connection = sp.GetRequiredService<SqliteConnection>();
-                    options.UseSqlite(connection);
-                });
-        
-        }
-        else
+        services.AddDbContext<DataContext>(options =>
         {
-            Console.WriteLine("Production environment detected. Using SQL Server database.");
-            services.AddDbContext<DataContext>((sp, options) =>
+            if (env.IsDevelopment())
             {
+              
+                options.UseInMemoryDatabase("GymPortalDevDb");
+            }
+            else
+            {
+                // PRODUKTION: En modellerad relationsdatabas (SQL Server)
                 var connection = configuration.GetConnectionString("ProductionDatabase")
-    ?? throw new ArgumentException("ProductionDatabase not provided");
+                    ?? throw new InvalidOperationException("Missing connection string");
 
                 options.UseSqlServer(connection);
-            });
-        }
-       
-    
+            }
+        });
+
         return services;
     }
 }
- 

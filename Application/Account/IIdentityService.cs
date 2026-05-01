@@ -1,5 +1,6 @@
 ﻿using Application.Account.Commands;
 using Application.Account.Responses;
+using System.Security.Claims;
 
 namespace Application.Account;
 
@@ -10,4 +11,8 @@ namespace Application.Account;
         Task<bool> LoginAsync(string email, string password);
 
         Task LogoutAsync();
-    }
+        Task<MyAccountResponse> GetMyAccountAsync(string userId);
+        Task UpdateProfileAsync(ClaimsPrincipal userPrincipal, string firstName, string lastName, string phoneNumber);
+        Task DeleteCurrentUserAsync(ClaimsPrincipal userPrincipal);
+
+}

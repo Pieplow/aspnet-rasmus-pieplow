@@ -42,7 +42,7 @@ public static class DbInitializer
              Id = 1,
              Name = "Yoga Flow",
              Trainer = "Maria",
-             
+
              StartTime = new DateTime(2026, 05, 01, 08, 00, 00),
              CurrentBookings = 0,
              MaxCapacity = 20

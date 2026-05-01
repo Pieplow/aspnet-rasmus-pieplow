@@ -2,7 +2,7 @@
 
 public class GymClass
 {
-    // Egenskaper med private set för att skydda datan
+  
     public int Id { get; private set; }
     public string Name { get; private set; } = null!;
     public string Trainer { get; private set; } = null!;

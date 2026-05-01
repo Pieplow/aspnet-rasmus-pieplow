@@ -25,6 +25,8 @@ public class MyAccountController : Controller
         // 1. Hämta UserId som string (vilket NameIdentifier alltid är)
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+        var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
         if (string.IsNullOrEmpty(userId))
             return RedirectToAction("Login", "Account");
 
@@ -35,7 +37,8 @@ public class MyAccountController : Controller
         var vm = new MyAccountViewModel
         {
             Bookings = bookings,
-            Membership = membership
+            Membership = membership,
+            Email = email ?? "No email found",
         };
 
         return View(vm);

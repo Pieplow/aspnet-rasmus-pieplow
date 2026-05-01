@@ -1982,3 +1982,363 @@ textarea {
     margin-bottom: 20px;
     font-weight: 500;
 }
+
+
+/* Schedule Section Styles */
+.section__schedule {
+    padding: 60px 0;
+    background-color: var(--light-color);
+    min-height: 80vh;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+    .schedule-header h2 {
+        font-size: 2rem;
+        color: var(--dark-color);
+    }
+
+.schedule-card {
+    background: var(--white-color);
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+}
+
+.schedule-table-wrapper {
+    overflow-x: auto;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .schedule-table th {
+        background: #f8fafc;
+        padding: 18px 24px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--grey-color);
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .schedule-table td {
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--border-subtle);
+        vertical-align: middle;
+    }
+
+.class-name {
+    display: block;
+    font-weight: 700;
+    color: var(--dark-color);
+    font-size: 15px;
+}
+
+.class-time {
+    display: block;
+    font-size: 12px;
+    color: var(--grey-color);
+    margin-top: 2px;
+}
+
+.trainer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.slots-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+    .slots-count.low {
+        color: #e53e3e;
+    }
+
+.btn-book {
+    background: var(--primary-color);
+    color: var(--dark-color);
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+    .btn-book:hover {
+        background: var(--dark-color);
+        color: var(--white-color);
+    }
+
+.status-tag-full {
+    background: #fee2e2;
+    color: #ef4444;
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+    .empty-state p {
+        color: var(--grey-color);
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+@media (max-width: 768px) {
+    .schedule-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Bookings & Admin Dashboard */
+.section__bookings {
+    padding: 40px 0;
+    background-color: var(--light-color);
+}
+
+@media (min-width: 768px) {
+    .section__bookings {
+        padding: 80px 0;
+    }
+}
+
+.account-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+@media (min-width: 1024px) {
+    .account-dashboard-grid {
+        grid-template-columns: 320px 1fr;
+        align-items: start;
+    }
+}
+
+.section__header-wide {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+    .section__header-wide h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 1rem;
+    }
+
+    .section__header-wide p {
+        color: var(--grey-color);
+    }
+
+.bookings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .bookings-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.booking-card {
+    background-color: var(--white-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-left: 5px solid var(--primary-color);
+}
+
+.booking-card-footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+    .booking-card-footer .delete-link {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+.booking-card--empty {
+    border-style: dashed;
+    border-left-color: #d1d5db;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+    .booking-card--empty p {
+        font-weight: 700;
+        color: #9ca3af;
+        margin-bottom: 1rem;
+    }
+
+.status-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--light-color);
+    color: var(--grey-color);
+}
+
+/* Admin Card */
+.admin-card {
+    background-color: var(--white-color);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+}
+
+@media (min-width: 768px) {
+    .admin-card {
+        padding: 32px;
+    }
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        color: var(--dark-color);
+    }
+
+.form-input {
+    width: 100%;
+    height: 48px;
+    background: #f4f6f8;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 0 16px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--dark-color);
+    outline: none;
+    transition: 0.2s;
+}
+
+    .form-input:focus {
+        background: #fff;
+        border-color: var(--primary-color);
+    }
+
+.admin-card--table {
+    padding: 0;
+    overflow: hidden;
+}
+
+    .admin-card--table .nav-header {
+        padding: 1.75rem 2rem;
+    }
+
+.admin-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.admin-table-main {
+    font-weight: 700;
+}
+
+.admin-table-sub {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.admin-action {
+    cursor: pointer;
+}
+
+.admin-action--delete {
+    color: var(--grey-color);
+    margin-left: 10px;
+}
+
+    .admin-action--delete:hover {
+        color: #ef4444;
+    }
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .admin-table th {
+        text-align: left;
+        padding: 16px 20px;
+        background: var(--light-color);
+        font-size: 11px;
+        text-transform: uppercase;
+        color: var(--grey-color);
+    }
+
+    .admin-table td {
+        padding: 20px;
+        border-bottom: 1px solid var(--light-color);
+        font-size: 14px;
+    }
+
+        .admin-table th:first-child,
+        .admin-table td:first-child {
+            min-width: 220px;
+        }
+
+.admin-badge {
+    background: var(--dark-color);
+    color: var(--white-color);
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.btn--full {
+    width: 100%;
+    margin-top: 1rem;
+}
