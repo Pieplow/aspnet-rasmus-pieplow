@@ -16,9 +16,12 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
 
         DbInitializer.SeedData(modelBuilder);
     }
-        
+
     public DbSet<MembershipEntity> Memberships => Set<MembershipEntity>();
     public DbSet<MembershipBenefitEntity> MembershipBenefits => Set<MembershipBenefitEntity>();
-    public DbSet<GymClass> GymClasses => Set<GymClass>();
     public DbSet<BookingEntity> Bookings => Set<BookingEntity>();
+
+    
+    public DbSet<GymClass> GymClasses => Set<GymClass>();
+    public DbSet<Gym> Gyms => Set<Gym>(); // FIXAD: Tog bort {get;set;}()
 }
