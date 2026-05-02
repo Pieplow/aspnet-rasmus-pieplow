@@ -19,4 +19,6 @@ public interface IIdentityService
     AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl);
     Task<ExternalLoginInfo?> GetExternalLoginInfoAsync();
     Task<SignInResult> ExternalLoginSignInAsync(string loginProvider, string providerKey, bool isPersistent);
+
+    Task<SignInResult> HandleExternalLoginAsync(ExternalLoginInfo info);
 }

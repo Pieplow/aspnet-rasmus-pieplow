@@ -122,4 +122,36 @@ public class IdentityService(
     {
         return await signInManager.ExternalLoginSignInAsync(loginProvider, providerKey, isPersistent);
     }
+
+    public async Task<SignInResult> HandleExternalLoginAsync(ExternalLoginInfo info)
+    {
+        // 1. Försök logga in direkt om kopplingen redan finns
+        var result = await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+        if (result.Succeeded) return result;
+
+        // 2. Om inloggningen misslyckades, kolla om användaren finns via e-post
+        var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+        if (string.IsNullOrEmpty(email)) return SignInResult.Failed;
+
+        var user = await userManager.FindByEmailAsync(email);
+
+        if (user == null)
+        {
+            // Skapa ny användare om den inte finns
+            user = new ApplicationUser { UserName = email, Email = email };
+            var createResult = await userManager.CreateAsync(user);
+            if (!createResult.Succeeded) return SignInResult.Failed;
+        }
+
+        // 3. Kolla om inloggningsmetoden (Google/GitHub) redan är kopplad till användaren
+        var logins = await userManager.GetLoginsAsync(user);
+        if (!logins.Any(x => x.LoginProvider == info.LoginProvider))
+        {
+            // Koppla bara om den inte redan finns (detta stoppar kraschen i din bild!)
+            await userManager.AddLoginAsync(user, info);
+        }
+
+        // 4. Slutför inloggningen
+        return await signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+    }
 }
