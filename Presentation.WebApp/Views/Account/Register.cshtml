@@ -5,19 +5,31 @@
             <h3>Become a Member</h3>
             <p class="intro">Sign up to continue your fitness journey with full access to your account.</p>
 
-            <!-- SOCIAL (placeholder – behåll design) -->
-            <form id="external-account-reg" method="post">
+            <!-- FORM 1: SOCIAL REGISTER (Kopplad till Google/GitHub) -->
+            <form asp-controller="Account" asp-action="ExternalLogin" method="post">
+                @Html.AntiForgeryToken()
                 <div class="social-login">
-                    <button type="button" class="social-btn"><span>G</span></button>
-                    <button type="button" class="social-btn"><span>F</span></button>
+                    @* Google-knapp med ikon *@
+                    <button type="submit" name="provider" value="Google" class="social-btn" title="Sign up with Google">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Reference_Icon.svg"
+                             alt="Google"
+                             style="width: 20px; height: 20px; object-fit: contain; pointer-events: none;" />
+                    </button>
+                    
+                    @* GitHub-knapp med ikon (ersätter F) *@
+                    <button type="submit" name="provider" value="GitHub" class="social-btn" title="Sign up with GitHub">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                             alt="GitHub"
+                             style="width: 22px; height: 22px; object-fit: contain; pointer-events: none;" />
+                    </button>
                 </div>
             </form>
 
             <div class="divider">OR CONTINUE WITH</div>
 
-            <!-- 🔥 MVC FORM (ENDA riktiga ändringen) -->
+            <!-- FORM 2: VANLIG REGISTER (Email) -->
             <form id="registerForm" asp-controller="Account" asp-action="Register" method="post">
-
+                @Html.AntiForgeryToken()
                 <div class="form-group text-left">
                     <label>Email Address *</label>
                     <input name="Email" class="form-input" autocomplete="username" placeholder="Enter Email Address" />

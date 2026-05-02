@@ -2,6 +2,7 @@
 using Application.Account.Commands;
 using Application.Account.Responses;
 using Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
@@ -105,5 +106,20 @@ public class IdentityService(
             LastName = user.LastName,
             PhoneNumber = user.PhoneNumber
         };
+    }
+
+    public AuthenticationProperties ConfigureExternalAuthenticationProperties(string provider, string redirectUrl)
+    {
+        return signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+    }
+
+    public async Task<ExternalLoginInfo?> GetExternalLoginInfoAsync()
+    {
+        return await signInManager.GetExternalLoginInfoAsync();
+    }
+
+    public async Task<SignInResult> ExternalLoginSignInAsync(string loginProvider, string providerKey, bool isPersistent)
+    {
+        return await signInManager.ExternalLoginSignInAsync(loginProvider, providerKey, isPersistent);
     }
 }
