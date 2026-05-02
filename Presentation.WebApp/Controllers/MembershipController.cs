@@ -78,7 +78,7 @@ public async Task<IActionResult> Index(CancellationToken ct)
 
         TempData["Success"] = "Membership activated";
 
-        return RedirectToAction("MyBookings", "Booking");
+        return RedirectToAction("Index", "MyAccount");
     }
 }
 

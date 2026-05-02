@@ -11,6 +11,7 @@ namespace Presentation.WebApp.Controllers;
 
 public class AccountController(IIdentityService identityService) : Controller
 {
+      
     // ---------------- GET ----------------
     [HttpGet]
     public IActionResult Login(string? returnUrl = null)
@@ -38,6 +39,8 @@ public class AccountController(IIdentityService identityService) : Controller
 
         return View();
     }
+
+
 
     // ---------------- POST ----------------
     [HttpPost]
@@ -137,7 +140,12 @@ public class AccountController(IIdentityService identityService) : Controller
     [Authorize]
     public async Task<IActionResult> UpdateProfile(string firstName, string lastName, string phoneNumber)
     {
+        
         await identityService.UpdateProfileAsync(User, firstName, lastName, phoneNumber);
+
+        
+        TempData["Success"] = "Your profile has been successfully updated!";
+
         return RedirectToAction("Index", "MyAccount");
     }
 

@@ -2342,3 +2342,21 @@ textarea {
     width: 100%;
     margin-top: 1rem;
 }
+
+/*Alert green*/
+
+
+.alert-success-custom {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+    display: block; /* Säkra att den syns */
+    width: 100%; /* Ta upp hela bredden */
+}
+
+

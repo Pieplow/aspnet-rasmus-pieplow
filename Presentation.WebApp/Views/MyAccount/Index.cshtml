@@ -1,16 +1,8 @@
 ﻿@model Presentation.WebApp.ViewModels.MyAccountViewModel
 
 @{
-    
     ViewData["Title"] = "My Account";
 }
-
-
-<p>DEBUG AUTH: @User.Identity?.IsAuthenticated</p>
-<p>DEBUG NAME: @User.Identity?.Name</p>
-<p>DEBUG EMAIL: @Model.Email</p>
-<p>DEBUG FIRSTNAME: @Model.FirstName</p>
-<p>DEBUG ID: @User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value</p>
 
 <section class="section__account-dashboard">
     <div class="container">
@@ -41,16 +33,16 @@
                     <div class="nav-header">Menu Options</div>
                     <ul class="nav-links">
                         <li>
-                            <a href="#">
+                            <a asp-controller="MyAccount" asp-action="Index">
                                 <span style="color: var(--accent-dark);">About Me</span>
                                 <span class="arrow">▶</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#"><span>My Membership</span><span class="arrow">▶</span></a>
+                            <a asp-controller="MyAccount" asp-action="NotFoundPage"><span>My Membership</span><span class="arrow">▶</span></a>
                         </li>
                         <li>
-                            <a href="#"><span>My Bookings</span><span class="arrow">▶</span></a>
+                            <a asp-controller="Booking" asp-action="MyBookings"><span>My Bookings</span><span class="arrow">▶</span></a>
                         </li>
                         <li>
                             <form asp-controller="Account" asp-action="Logout" method="post">
@@ -74,20 +66,27 @@
 
             <!-- MAIN CONTENT -->
             <main class="dashboard-content">
+                @if (TempData["Success"] != null)
+                {
+                    <div id="success-alert" class="alert-success-custom">
+                        @TempData["Success"]
+                    </div>
+                }
                 <div class="about-me-card">
                     <h3>About Me</h3>
 
                     <form asp-controller="Account" asp-action="UpdateProfile" method="post">
-
+                        @Html.AntiForgeryToken()
                         <div class="form-row">
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input type="text" name="FirstName" value="@Model.FirstName" class="form-input" />
+                                <!-- name matchar nu backend-parametern -->
+                                <input type="text" name="firstName" value="@Model.FirstName" class="form-input" />
                             </div>
 
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" name="LastName" value="@Model.LastName" class="form-input" />
+                                <input type="text" name="lastName" value="@Model.LastName" class="form-input" />
                             </div>
                         </div>
 
@@ -98,7 +97,7 @@
 
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input type="tel" name="PhoneNumber" value="@Model.PhoneNumber" class="form-input" />
+                            <input type="tel" name="phoneNumber" value="@Model.PhoneNumber" class="form-input" />
                         </div>
 
                         <div class="form-actions">
@@ -106,15 +105,13 @@
                                 Save Profile
                             </button>
                         </div>
-
                     </form>
                 </div>
 
-                <!-- STATISTICS -->
+                <!-- STATISTICS (Behålls som de är) -->
                 <div class="statistics-section">
                     <h3>My Statistics</h3>
                     <div class="stats-card">
-
                         <div class="stat-item">
                             <div class="stat-info">
                                 <span>Check-In (last 30 days)</span>
@@ -124,7 +121,6 @@
                                 <div class="progress-fill" style="width: 83%;"></div>
                             </div>
                         </div>
-
                         <div class="stat-item">
                             <div class="stat-info">
                                 <span>Weight Goal</span>
@@ -134,7 +130,6 @@
                                 <div class="progress-fill" style="width: 50%;"></div>
                             </div>
                         </div>
-
                         <div class="stat-item">
                             <div class="stat-info">
                                 <span>Current BMI</span>
@@ -144,10 +139,24 @@
                                 <div class="progress-fill" style="width: 65%;"></div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </main>
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const alert = document.getElementById('success-alert');
+            if (alert) {
+                setTimeout(() => {
+                    alert.style.transition = "opacity 1s ease";
+                    alert.style.opacity = "0";
+                    setTimeout(() => alert.remove(), 1000);
+                }, 3000);
+            }
+        });
+    </script>
+}
