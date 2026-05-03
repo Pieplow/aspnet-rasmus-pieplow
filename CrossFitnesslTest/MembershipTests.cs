@@ -22,20 +22,25 @@ public class MembershipTests
     [Fact]
     public async Task CreateMembership_ShouldSaveToDatabase()
     {
+        // ARRANGE
         var context = GetInMemoryContext();
         var uow = new UnitOfWork(context);
-
         var userId = "test-user-123";
 
-        
-        var membership = new MembershipEntity { UserId = userId };
+        // ACT - Här lägger vi till Title och Description som saknades i image_edc8e4.png
+        var membership = new MembershipEntity
+        {
+            UserId = userId,
+            Title = "Standard",        
+            Description = "Beskrivning" 
+        };
 
         context.Memberships.Add(membership);
         await uow.CompleteAsync();
 
+        // ASSERT
         var savedMembership = await context.Memberships.FirstOrDefaultAsync(m => m.UserId == userId);
-
         Assert.NotNull(savedMembership);
-        Assert.Equal(userId, savedMembership.UserId);
+        Assert.Equal("Standard", savedMembership.Title);
     }
 }
