@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Application/Application.csproj" />
+  <Project Path="CrossFitnesslTest/TestCrossFitness.csproj" Id="00377cb4-485e-40e5-b19e-e696ee49785f" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="Infrastructure/Infrastructure.csproj" />
   <Project Path="Presentation.WebApp/Presentation.WebApp.csproj" />
