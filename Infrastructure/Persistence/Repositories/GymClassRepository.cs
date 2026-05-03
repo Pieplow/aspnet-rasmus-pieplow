@@ -23,7 +23,7 @@ public class GymClassRepository(DataContext context)
     protected override GymClass ToDomainModel(GymClassEntity entity)
         => new GymClass(entity.Name, entity.Trainer, entity.StartTime, entity.MaxCapacity)
         {
-            
+            Id = entity.Id 
         };
 
     protected override void ApplyPropertyUpdated(GymClassEntity entity, GymClass model)
@@ -34,8 +34,9 @@ public class GymClassRepository(DataContext context)
         entity.MaxCapacity = model.MaxCapacity;
     }
 
-    public async Task UpdateAsync(GymClass gymClass, CancellationToken ct = default)
+    // VIKTIGT: Endast EN UpdateAsync, och den SKA ha override.
+    public override async Task<bool> UpdateAsync(GymClass gymClass, CancellationToken ct = default)
     {
-        await base.UpdateAsync(gymClass, ct);
+       return await base.UpdateAsync(gymClass, ct);
     }
 }

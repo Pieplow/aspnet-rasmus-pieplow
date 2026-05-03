@@ -42,11 +42,13 @@ public class BookingService : IBookingService
 
     public async Task<List<BookingResponse>> GetUserBookingsAsync(string userId)
     {
-        var bookings = await _bookingRepository.GetAllAsync();
+        // 1. Hämta ENDAST den inloggade användarens bokningar direkt från DB
+        var bookings = await _bookingRepository.GetByUserIdAsync(userId);
+
+        // 2. Hämta klasserna för att kunna mappa namnen (helt ok att ha kvar så länge listan är rimlig)
         var classes = await _gymClassRepository.GetAllAsync();
 
         return bookings
-            .Where(b => b.UserId == userId)
             .Select(b =>
             {
                 var gymClass = classes.FirstOrDefault(c => c.Id == b.GymClassId);

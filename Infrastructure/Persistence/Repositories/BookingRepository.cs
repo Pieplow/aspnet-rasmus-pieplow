@@ -39,4 +39,20 @@ public class BookingRepository : RepositoryBase<Booking, Guid, BookingEntity, Da
     {
         return await Set.CountAsync(b => b.GymClassId == gymClassId, ct);
     }
+
+    public async Task<IEnumerable<Booking>> GetByUserIdAsync(string userId)
+    {
+        // 1. Hämta databas-entiteterna (BookingEntity) från tabellen
+        var entities = await _context.Bookings
+            .Where(b => b.UserId == userId)
+            .ToListAsync();
+
+        // 2. Använd Rehydrate för att skapa domänobjekt av datan
+        // Vi mappar fälten från entiteten (e) till Rehydrate-metoden
+        return entities.Select(e => Booking.Rehydrate(
+            e.Id,
+            e.UserId,
+            e.GymClassId,
+            e.BookedAt));
+    }
 }

@@ -1,9 +1,13 @@
 ﻿using Application.GymClasses.Responses;
-using Domain.Abstractions.Repositories; 
+using Domain.Abstractions.Repositories;
+using Domain.Aggregates.GymClasses;
+using Domain.Abstractions;
 
 namespace Application.GymClasses;
 
-public class GymClassService(IGymClassRepository gymClassRepository) : IGymClassService
+public class GymClassService(
+    IGymClassRepository gymClassRepository,
+    IUnitOfWork unitOfWork) : IGymClassService
 {
     public async Task<IEnumerable<GymClassResponse>> GetAllAsync()
     {
@@ -18,15 +22,31 @@ public class GymClassService(IGymClassRepository gymClassRepository) : IGymClass
             c.CurrentBookings));
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task CreateAsync(GymClassResponse model)
     {
        
+        var gymClass = new Domain.Aggregates.GymClasses.GymClass(
+            model.Name,
+            model.Trainer,
+            model.StartTime,
+            model.MaxCapacity
+        );
+
+        await gymClassRepository.AddAsync(gymClass);
+
+        await unitOfWork.CompleteAsync();
+    }
+
+    public async Task DeleteAsync(int id)
+    {
         var gymClass = await gymClassRepository.GetByIdAsync(id);
 
         if (gymClass != null)
         {
-            
             await gymClassRepository.RemoveAsync(gymClass);
+
+            
+            await unitOfWork.CompleteAsync();
         }
     }
-    }
+}

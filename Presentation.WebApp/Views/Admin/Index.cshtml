@@ -1,4 +1,6 @@
-﻿<!-- Admin Dashboard -->
+﻿@model IEnumerable<Application.GymClasses.Responses.GymClassResponse>
+
+<!-- Admin Dashboard -->
 <section class="section__bookings">
     <div class="container">
         <header class="section__header-wide">
@@ -11,22 +13,24 @@
             <aside class="dashboard-sidebar">
                 <div class="admin-card">
                     <h3 class="admin-card-title">Add New Class</h3>
-                    <form>
+                    <form asp-controller="Admin" asp-action="Create" method="post">
+                        @Html.AntiForgeryToken() 
+    
                         <div class="form-group">
                             <label>Class Title</label>
-                            <input type="text" placeholder="e.g. Yoga" class="form-input" />
+                            <input name="Name" type="text" placeholder="e.g. Yoga" class="form-input" required />
                         </div>
                         <div class="form-group">
                             <label>Date & Time</label>
-                            <input type="datetime-local" class="form-input" />
+                            <input name="StartTime" type="datetime-local" class="form-input" required />
                         </div>
                         <div class="form-group">
                             <label>Instructor</label>
-                            <input type="text" placeholder="Instructor name" class="form-input" />
+                            <input name="Trainer" type="text" placeholder="Instructor name" class="form-input" />
                         </div>
                         <div class="form-group">
                             <label>Capacity</label>
-                            <input type="number" placeholder="20" class="form-input" />
+                            <input name="MaxCapacity" type="number" placeholder="20" class="form-input" required />
                         </div>
                         <button type="submit" class="btn accent btn--full">
                             Create Class +
@@ -50,30 +54,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="admin-table-main">Power Yoga</div>
-                                        <div class="admin-table-sub">25 Apr 2026, 09:00</div>
-                                    </td>
-                                    <td>Sarah J.</td>
-                                    <td><span class="admin-badge">18/20</span></td>
-                                    <td>
-                                        <span class="admin-action">⚙️</span>
-                                        <span class="admin-action admin-action--delete">🗑</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="admin-table-main">HIIT Cardio</div>
-                                        <div class="admin-table-sub">26 Apr 2026, 17:30</div>
-                                    </td>
-                                    <td>Mike D.</td>
-                                    <td><span class="admin-badge">20/20 FULL</span></td>
-                                    <td>
-                                        <span class="admin-action">⚙️</span>
-                                        <span class="admin-action admin-action--delete">🗑</span>
-                                    </td>
-                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        
+                                        <td>
+                                            <div class="admin-table-main">@item.Name</div>
+                                            <div class="admin-table-sub">@item.StartTime.ToString("f")</div>
+                                        </td>
+
+                                       
+                                        <td>@item.Trainer</td>
+
+                                        
+                                        <td><span class="admin-badge">0 / @item.MaxCapacity</span></td>
+
+                                        
+                                        <td>
+                                            <div style="display: flex; gap: 10px; align-items: center;">
+                                                <span class="admin-action">⚙️</span>
+                    
+                                              
+                                                <form action="/admin/delete/@item.Id" method="post" onsubmit="return confirm('Vill du verkligen ta bort @item.Name?');">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@item.Id" />
+                                                    <button type="submit" class="admin-action admin-action--delete" style="background:none; border:none; padding:0; cursor:pointer;">
+                                                        🗑
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

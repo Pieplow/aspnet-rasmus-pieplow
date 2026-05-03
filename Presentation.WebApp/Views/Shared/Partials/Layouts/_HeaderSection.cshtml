@@ -25,17 +25,38 @@
                     <li class="menu-item">
                         <a asp-controller="Home" asp-action="Index" fragment="store">Store</a>
                     </li>
+                    @* VG-KRAV: Visa endast Admin för inloggade administratörer *@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="menu-item">
+                            <a asp-controller="Admin" asp-action="Index" style="color: var(--color-accent, #d4ff00); font-weight: bold;">Admin</a>
+                        </li>
+                    }
                 </ul>
             </nav>
 
             <nav class="account-menu">
                 <ul class="menu">
-                    <li class="menu-item">
-                        <a class="menu-item-link" asp-controller="Account" asp-action="Register">Become Member</a>
-                    </li>
-                    <li class="menu-item">
-                        <a class="btn accent" asp-controller="Account" asp-action="Login">Sign In</a>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @* Om inloggad: Visa utloggningsknapp istället *@
+                        <li class="menu-item">
+                            <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn accent" style="border: none; cursor: pointer;">Sign Out</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        @* Om inte inloggad: Visa originalknapparna *@
+                        <li class="menu-item">
+                            <a class="menu-item-link" asp-controller="Account" asp-action="Register">Become Member</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="btn accent" asp-controller="Account" asp-action="Login">Sign In</a>
+                        </li>
+                    }
                 </ul>
             </nav>
 

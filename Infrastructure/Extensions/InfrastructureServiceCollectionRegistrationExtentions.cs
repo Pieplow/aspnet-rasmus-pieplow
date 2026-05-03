@@ -1,8 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
+﻿using Application.Bookings;
+using Infrastructure.Identity;
+using Infrastructure.Persistence.Context.Extensions;
 using Infrastructure.Persistence.Repositories.Extensions;
-using Application.Bookings;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 
 
 
@@ -23,4 +27,23 @@ public static class InfrastructureServiceCollectionRegistrationExtentions
         services.AddIdentityInfrastructure();
         return services;
       }
- }
+
+    public static IServiceCollection AddIdentityInfrastructure(this IServiceCollection services)
+    {
+        services.AddScoped<Application.Account.IIdentityService, Infrastructure.Services.IdentityService>();
+        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = false;
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireLowercase = false;
+        })
+        .AddRoles<IdentityRole>()                
+        .AddEntityFrameworkStores<DataContext>() 
+        .AddDefaultTokenProviders();
+
+        return services;
+    }
+}

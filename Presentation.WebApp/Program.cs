@@ -1,5 +1,7 @@
 using Application.Bookings;
 using Application.Extensions;
+using Application.GymClasses;
+using Domain.Abstractions;
 using Domain.Abstractions.Repositories;
 using Infrastructure.Extensions;
 using Infrastructure.Identity;
@@ -25,15 +27,18 @@ builder.Services.AddApplication(builder.Configuration, builder.Environment);
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IGymClassRepository, GymClassRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// 1. IDENTITY KONFIGURATION
-builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<DataContext>()
-    .AddDefaultTokenProviders();
+
+
+
+
+// Glöm inte din Service-registrering!
+builder.Services.AddScoped<IGymClassService, GymClassService>();
 
 builder.Services.AddAuthentication()
     .AddGoogle(options =>

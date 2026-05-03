@@ -15,14 +15,14 @@ public class GymClass
         CurrentBookings = 0; // Startar alltid på noll för nya pass
     }
 
-    public int Id { get; private set; }
-    public string Name { get; private set; } = null!;
-    public string Trainer { get; private set; } = null!;
-    public DateTime StartTime { get; private set; }
-    public int MaxCapacity { get; private set; }
-    public int CurrentBookings { get; private set; }
+    public int Id { get; set; }
+    public string Name { get; set; } = null!;
+    public string Trainer { get; set; } = null!;
+    public DateTime StartTime { get; set; }
+    public int MaxCapacity { get; set; }
+    public int CurrentBookings { get; set; }
 
-    // Logik för att kontrollera status
+    
     public bool CanBook() => CurrentBookings < MaxCapacity;
     public int AvailableSlots => MaxCapacity - CurrentBookings;
 
