@@ -1,34 +1,41 @@
-﻿using Domain.Abstractions.Repositories;
-using Domain.Aggregates.GymClasses;
-using Infrastructure.Persistence.Context; 
+﻿using Domain.Aggregates.GymClasses;
+using Infrastructure.Persistence.Entities;
+using Infrastructure.Persistence.Context;
 using Infrastructure.Persistence.Context.Extensions;
-using Microsoft.EntityFrameworkCore;
+using Domain.Abstractions.Repositories;
 
 namespace Infrastructure.Repositories;
 
-public class GymClassRepository(DataContext context) : IGymClassRepository
+public class GymClassRepository(DataContext context)
+    : RepositoryBase<GymClass, int, GymClassEntity, DataContext>(context), IGymClassRepository
 {
-    public async Task<IEnumerable<GymClass>> GetAllAsync(CancellationToken ct)
+    protected override int GetId(GymClass model) => model.Id;
+
+    protected override GymClassEntity ToEntity(GymClass model) => new()
     {
-        // Ingen manuell Select/Mapping behövs! 
-        // EF Core mappar direkt till Domain.GymClass
-        return await context.GymClasses
-            .AsNoTracking() // Gör det snabbare eftersom vi bara ska läsa datan
-            .ToListAsync(ct);
+        Id = model.Id,
+        Name = model.Name,
+        Trainer = model.Trainer,
+        StartTime = model.StartTime,
+        MaxCapacity = model.MaxCapacity
+    };
+
+    protected override GymClass ToDomainModel(GymClassEntity entity)
+        => new GymClass(entity.Name, entity.Trainer, entity.StartTime, entity.MaxCapacity)
+        {
+            
+        };
+
+    protected override void ApplyPropertyUpdated(GymClassEntity entity, GymClass model)
+    {
+        entity.Name = model.Name;
+        entity.Trainer = model.Trainer;
+        entity.StartTime = model.StartTime;
+        entity.MaxCapacity = model.MaxCapacity;
     }
 
-    public async Task<GymClass?> GetByIdAsync(int id, CancellationToken ct)
+    public async Task UpdateAsync(GymClass gymClass, CancellationToken ct = default)
     {
-        // Här hämtar vi objektet direkt. 
-        // Eftersom vi ska boka på detta objektet kör vi INTE AsNoTracking här.
-        return await context.GymClasses
-            .FirstOrDefaultAsync(x => x.Id == id, ct);
-    }
-
-    public async Task UpdateAsync(GymClass gymClass, CancellationToken ct)
-    {
-        // Denna metod behövs för att spara ändringen när vi kört gymClass.Book()
-        context.GymClasses.Update(gymClass);
-        await context.SaveChangesAsync(ct);
+        await base.UpdateAsync(gymClass, ct);
     }
 }

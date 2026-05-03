@@ -2,9 +2,7 @@
 
 namespace Domain.Abstractions.Repositories;
 
-public interface IGymClassRepository
+public interface IGymClassRepository : IRepositoryBase<GymClass, int>
 {
-    Task<IEnumerable<GymClass>> GetAllAsync(CancellationToken ct = default);
-    Task<GymClass?> GetByIdAsync(int id, CancellationToken ct = default);
-    Task UpdateAsync(GymClass gymClass, CancellationToken ct = default);
+    new Task<bool> UpdateAsync(GymClass gymClass, CancellationToken ct = default);
 }

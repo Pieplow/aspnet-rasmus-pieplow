@@ -1,7 +1,6 @@
 ﻿using Infrastructure.Identity;
 using Infrastructure.Persistence.Entities;
 using Infrastructure.Persistence.Seed;
-using Domain.Aggregates.GymClasses;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +20,11 @@ public class DataContext(DbContextOptions<DataContext> options) : IdentityDbCont
     public DbSet<MembershipBenefitEntity> MembershipBenefits => Set<MembershipBenefitEntity>();
     public DbSet<BookingEntity> Bookings => Set<BookingEntity>();
 
-    
-    public DbSet<GymClass> GymClasses => Set<GymClass>();
-    public DbSet<Gym> Gyms => Set<Gym>(); // FIXAD: Tog bort {get;set;}()
+    // RÄTTELSE: Vi mappar mot GymClassEntity, precis som du gjort med BookingEntity.
+    // Detta fixar felet "Cannot create a DbSet for GymClassEntity".
+    public DbSet<GymClassEntity> GymClasses => Set<GymClassEntity>();
+
+    // RÄTTELSE: Om du har en GymEntity i din Entities-mapp ska den användas här.
+    // Vi undviker att använda domänmodellen "Gym" direkt i DataContext.
+   
 }

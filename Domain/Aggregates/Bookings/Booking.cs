@@ -29,4 +29,9 @@ public sealed class Booking
     {
         return new Booking(userId, gymClassId);
     }
+
+    public static Booking Rehydrate(Guid id, string userId, int gymClassId, DateTime bookedAt)
+    {
+        return new Booking(id, userId, gymClassId, bookedAt);
+    }
 }
