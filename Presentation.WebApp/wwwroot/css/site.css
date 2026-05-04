@@ -25,7 +25,6 @@
     --menu-item-text-color: var(--white-color);
     --menu-item-text-hover-color: var(--primary-color);
     --menu-item-text-active-color: var(--primary-color);
-    /* EXTRA (behövs för layouten) */
     --section-bg-light: #EFEFEF;
     --section-bg-dark: linear-gradient(135deg, #171420 0%, #211d2d 100%);
     --card-shadow: 0 8px 20px rgba(0,0,0,0.05);
@@ -148,7 +147,7 @@
         height: 12px;
     }
 
-/* Login/Register cards can share same style */
+/* Login/Register cards */
 .auth-card--login,
 .auth-card--register {
     max-width: 560px;
@@ -326,14 +325,34 @@ body {
 
 .main-menu .menu,
 .account-menu .menu {
-    display: flex;
-    align-items: center;
-    gap: 24px;
+   
+        display: flex !important;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
 }
 
+
+
+.main-menu .menu,
+.account-menu .menu,
 .menu-item-link {
-    font-size: 13px;
-    color: #f2f2f2;
+    text-decoration: none !important;
+    list-style: none !important;
+    border-bottom: none !important; /* Tar bort eventuella borders som ser ut som streck */
+}
+
+/* Detta tar bort strecket på själva list-objekten om de har det */
+.menu li {
+    text-decoration: none !important;
+    border: none !important;
+}
+
+/* Endast understrykning vid hover */
+.menu-item-link:hover {
+    text-decoration: underline !important;
+    color: var(--primary-color) !important;
 }
 
 .account-menu .menu-item-link {
@@ -347,6 +366,11 @@ body {
     padding: 10px 18px;
     border-radius: 999px;
     font: inherit;
+}
+
+.header-area a:hover {
+    text-decoration: underline !important;
+    color: var(--primary-color) !important;
 }
 
 /* Hero */
@@ -758,17 +782,98 @@ body {
 }
 
 
-/* Membership */
+/* Membership Section (User Themed) */
+.section__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .section__header {
+        margin-bottom: 60px;
+    }
+}
+
 .section__membership .container {
-    background: var(--section-bg-light);
-    border-radius: 18px;
-    padding: 40px 20px;
+    background: #EFEFEF;
+    border-radius: 12px;
+    padding: 30px 15px;
+}
+
+@media (min-width: 768px) {
+    .section__membership .container {
+        padding: 60px 40px;
+        border-radius: 20px;
+    }
 }
 
 .membership-grid {
     display: grid;
     gap: 16px;
 }
+
+@media (min-width: 768px) {
+    .membership-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.membership-card {
+    position: relative;
+    background: var(--white-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+}
+
+    .membership-card.highlight {
+        border: 2px solid var(--primary-color);
+    }
+
+.card-icon {
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    color: var(--dark-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 12px 0;
+}
+
+    .price span {
+        font-size: 14px;
+        color: var(--grey-color);
+    }
+
+.features li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 13px;
+    color: var(--grey-color);
+    margin-bottom: 8px;
+}
+
+    .features li::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--primary-color);
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: 7px;
+    }
 
 /* Desktop */
 @media (min-width: 768px) {
@@ -923,75 +1028,127 @@ body {
     gap: 6px;
     font-size: 13px;
 }
-
-/* FAQ Section  */
-.section__faq .container {
+/*FAQ*/
+.faq-section {
+    padding: 60px 20px;
+    font-family: 'Inter', sans-serif;
     background: #EFEFEF;
-    border-radius: 12px;
-    padding: 30px 15px;
-    margin-top: 20px;
-}
-
-@media (min-width: 768px) {
-    .section__faq .container {
-        padding: 60px 40px;
-        border-radius: 20px;
-    }
 }
 
 .faq-grid {
     display: grid;
-    gap: 20px;
-}
-
-@media (min-width: 768px) {
-    .faq-grid {
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-    }
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start;
 }
 
 .faq-image img {
-    border-radius: 16px;
     width: 100%;
+    border-radius: 24px;
+    display: block;
+}
+
+.faq-label {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: inline-block;
+    margin-bottom: 20px;
 }
 
 .faq-content h2 {
-    margin: 10px 0 20px;
-    font-size: clamp(1.8rem, 3vw, 2.7rem);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #1a1a1a;
 }
 
 .faq-item {
-    padding: 20px 14px;
-    border-bottom: 1px solid var(--light-color);
+    border-bottom: 1px solid #eee;
+    padding: 25px 0;
     cursor: pointer;
-    background: var(--white-color);
-    margin-bottom: 8px;
-    border-radius: 12px;
 }
 
-.faq-item h4 {
-    font-size: 15px;
-    font-weight: 700;
-    margin: 0;
+    .faq-item h4 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+.arrow-container {
+    background: #d4ff3f;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
 }
 
-.faq-item p {
-    margin-top: 12px;
-    font-size: 13px;
-    color: var(--grey-color);
+.faq-item.active .arrow-container {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: 20px;
+}
+
+.faq-answer p {
+    color: #666;
     line-height: 1.6;
+    margin-bottom: 15px;
 }
 
-/* GRID */
-.contact-grid,
-.account-grid {
-    display: grid;
-    gap: 20px;
+.faq-answer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
+    .faq-answer ul li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 8px;
+        color: #888;
+        font-size: 0.95rem;
+    }
+
+        .faq-answer ul li::before {
+            content: "•";
+            color: #d4ff3f;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+@media (max-width: 900px) {
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .faq-image {
+        order: -1;
+    }
+}
 /* CONTACT */
 .contact-image {
     position: relative;
