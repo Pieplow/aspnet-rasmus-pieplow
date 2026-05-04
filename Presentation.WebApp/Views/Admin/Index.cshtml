@@ -72,15 +72,14 @@
                                         
                                         <td>
                                             <div style="display: flex; gap: 10px; align-items: center;">
-                                                <span class="admin-action">⚙️</span>
+                                                
                     
                                               
                                                 <form action="/admin/delete/@item.Id" method="post" onsubmit="return confirm('Vill du verkligen ta bort @item.Name?');">
                                                     @Html.AntiForgeryToken()
                                                     <input type="hidden" name="id" value="@item.Id" />
-                                                    <button type="submit" class="admin-action admin-action--delete" style="background:none; border:none; padding:0; cursor:pointer;">
-                                                        🗑
-                                                    </button>
+                                                  
+                                                    <button type="submit" class="admin-action admin-action--delete">Remove Class</button>
                                                 </form>
                                             </div>
                                         </td>

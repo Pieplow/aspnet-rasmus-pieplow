@@ -15,7 +15,7 @@
             <!-- SIDEBAR -->
             <aside class="dashboard-sidebar">
                 <div class="profile-photo">
-                    <img src="https://images.unsplash.com/photo-1597347343908-2937e7dcc560?auto=format&fit=crop&q=80&w=1000"
+                    <img src="~/images/trainer-1 1.png"
                          alt="Profile">
                 </div>
 
@@ -45,7 +45,7 @@
                             <a asp-controller="Booking" asp-action="MyBookings"><span>My Bookings</span><span class="arrow">▶</span></a>
                         </li>
                         <li>
-                            <!-- Logout ligger kvar i AccountController eftersom det rör säkerhet/auth -->
+                           
                             <form asp-controller="Account" asp-action="Logout" method="post">
                                 @Html.AntiForgeryToken()
                                 <button type="submit" style="background:none;border:none;color:inherit;cursor:pointer;">
@@ -58,7 +58,7 @@
 
                 <div class="account-delete-area">
                     <p>If you like to remove your account click below</p>
-                    <!-- Ändrad till MyAccountController -->
+                   
                     <form asp-controller="MyAccount" asp-action="DeleteAccount" method="post">
                         @Html.AntiForgeryToken()
                         <button type="submit" class="delete-link">Remove Account</button>

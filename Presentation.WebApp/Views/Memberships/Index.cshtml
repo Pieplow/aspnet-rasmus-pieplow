@@ -5,7 +5,6 @@
 }
 
 
-
 <!-- Membership Section -->
 <section class="section__membership">
     <div class="container">
@@ -16,7 +15,9 @@
         <div class="membership-grid">
             <!-- STANDARD -->
             <div class="membership-card">
-                <div class="card-icon">⚙️</div>
+                <div class="card-icon">
+                    <img src="~/images/bell.svg" alt="Icon">
+                </div>
                 <div class="card-top">
                     <h3>Standard Membership</h3>
                     <ul class="features">
@@ -45,7 +46,9 @@
 
             <!-- PREMIUM -->
             <div class="membership-card highlight">
-                <div class="card-icon">⚙️</div>
+                <div class="card-icon">
+                    <img src="~/images/bell.svg" alt="Icon">
+                </div>
                 <div class="card-top">
                     <h3>Premium Membership</h3>
                     <ul class="features">
@@ -73,14 +76,19 @@
                 </div>
             </div>
 
-            <!-- CTA -->
+            <!-- CTA - NU INUTI GRIDDEN -->
             <div class="membership-cta">
-                <h3>Get Your Membership</h3>
-                <p>Our memberships give you access to all equipment, personal training.</p>
-                <p class="phone">Call Us At: (+46) 8 410 521 00</p>
-                <a href="#" class="btn accent">Call Us Today</a>
+                <div class="cta-content">
+                    <h3>Get Your Membership</h3>
+                    <p>Our memberships give you access to all equipment, personal training.</p>
+                    <p class="phone">Call Us At: (+46) 8 410 521 00</p>
+                    <a href="#" class="btn accent">Call Us Today</a>
+                </div>
+                <div class="cta-image">
+                    <img src="~/images/our-pricing-cta-image 1.png" alt="Training Image">
+                </div>
             </div>
-        </div>
+        </div> <!-- Slut på membership-grid -->
 
         <div class="membership-benefits">
             <span>✔ Get 30 day free trial</span>
@@ -88,7 +96,7 @@
             <span>✔ You can cancel anytime</span>
         </div>
     </div>
-
+</section>
     <section class="section__faq">
    
                 <div class="faq-section">
@@ -159,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-
+              </section>
                 <script>
                                     document.getElementById('faqList')?.addEventListener('click', function(e) {
                                         const item = e.target.closest('.faq-item');

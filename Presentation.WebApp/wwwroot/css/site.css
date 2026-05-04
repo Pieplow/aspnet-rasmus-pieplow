@@ -313,6 +313,133 @@ body {
     justify-content: space-between;
     gap: 24px;
 }
+.menu-toggle {
+    display: none; /* Gömmer på desktop */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+    /* De tre strecken */
+    .menu-toggle .bar {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Animation till ett "X" när klassen .is-active läggs på */
+    .menu-toggle.is-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle.is-active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.is-active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+/* 1. MOBIL-LÄGE (0px till 992px) */
+@media (max-width: 992px) {
+    .menu-toggle {
+        display: flex !important; /* Tvingar fram hamburgaren */
+    }
+
+    @media (max-width: 992px) {
+        .nav-container .btn.accent {
+            /* Gör knappen till en rektangel istället för en boll */
+            width: 220px !important;
+            height: 50px !important;
+            display: flex !important;
+            /* Fixar texten så den syns (SVART TEXT) */
+            color: #000000 !important;
+            font-weight: 800 !important;
+            font-size: 14px !important;
+            /* Centrerar knappen i menyn */
+            margin: 15px auto !important;
+            justify-content: center !important;
+            align-items: center !important;
+            /* Tvingar färgen och rundningen */
+            background-color: #D6E831 !important;
+            border-radius: 50px !important;
+            text-decoration: none !important;
+            border: none !important;
+        }
+    }
+
+        /* JavaScript lägger till .active - då visar vi den! */
+        .nav-container.active {
+            display: flex !important;
+        }
+
+        /* Stapla länkarna på höjden i mobilen */
+        .nav-container .menu {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 20px !important;
+            width: 100% !important;
+            display: flex !important;
+        }
+
+        .nav-container .menu-item a {
+            font-size: 18px !important;
+            color: white !important;
+            display: block !important;
+            padding: 10px 0 !important;
+            text-decoration: none !important;
+        }
+}
+
+/* 2. DESKTOP-LÄGE (993px och uppåt) */
+@media (min-width: 993px) {
+    .menu-toggle {
+        display: none !important;
+    }
+
+    .nav-container {
+        display: flex !important;
+        align-items: center !important;
+        gap: 30px !important;
+        background: transparent !important;
+        position: static !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        width: auto !important;
+    }
+
+    .main-menu .menu,
+    .account-menu .menu {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 24px !important;
+    }
+
+    .menu-item a {
+        text-decoration: none !important;
+        color: white !important;
+        font-size: 14px !important;
+    }
+}
+
+/* 3. GEMENSAMMA REGLER */
+.header-area {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+}
+
+/*BRAND*/
 
 .section__brands {
     background-color: var(--primary-color);
@@ -783,166 +910,119 @@ body {
 
 
 /* Membership Section  */
-.section__header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-@media (min-width: 768px) {
-    .section__header {
-        margin-bottom: 60px;
-    }
-}
-
+/* --- Membership Grid & Container --- */
 .section__membership .container {
-    background: transparent;
-    border-radius: 12px;
-    padding: 30px 15px;
-}
-
-@media (min-width: 768px) {
-    .section__membership .container {
-        padding: 60px 40px;
-        border-radius: 20px;
-    }
+    background: transparent; /* Din beigea bakgrund lyser igenom */
+    padding: 60px 15px;
 }
 
 .membership-grid {
     display: grid;
-    gap: 16px;
+    gap: 24px;
+    align-items: stretch; /* Gör alla kort (vita + svarta) lika höga */
+    margin-bottom: 40px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .membership-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-.membership-card {
-    position: relative;
+/* --- Kortets Basstruktur --- */
+.membership-card,
+.membership-cta {
     background: var(--white-color);
-    border-radius: 16px;
-    padding: 24px;
+    border-radius: 20px;
     box-shadow: var(--card-shadow);
-}
-
-    .membership-card.highlight {
-        border: 2px solid var(--primary-color);
-    }
-
-.card-icon {
-    position: absolute;
-    top: -12px;
-    left: 16px;
-    width: 32px;
-    height: 32px;
-    background: var(--primary-color);
-    color: var(--dark-color);
-    border-radius: 50%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-}
-
-.price {
-    font-size: 22px;
-    font-weight: 700;
-    margin: 12px 0;
-}
-
-    .price span {
-        font-size: 14px;
-        color: var(--grey-color);
-    }
-
-.features li {
+    flex-direction: column;
+    overflow: hidden;
     position: relative;
-    padding-left: 16px;
-    font-size: 13px;
-    color: var(--grey-color);
-    margin-bottom: 8px;
 }
 
-    .features li::before {
-        content: "";
-        width: 6px;
-        height: 6px;
-        background: var(--primary-color);
-        border-radius: 50%;
-        position: absolute;
-        left: 0;
-        top: 7px;
-    }
-
-/* Desktop */
-@media (min-width: 768px) {
-    .membership-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+/* Det svarta CTA-kortet längst till höger */
+.membership-cta {
+    background: #0D0B14; 
+    color: var(--white-color);
+    padding: 40px 32px;
+    text-align: center;
+    justify-content: center;
 }
 
+    .membership-cta h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
+    .membership-cta .phone {
+        font-weight: 700;
+        margin: 20px 0;
+        color: var(--primary-color);
+    }
+
+/* --- De Vita Kortens Innehåll --- */
 .membership-card {
-    position: relative;
-    background: var(--white-color);
-    border-radius: 16px;
-    padding: 18px;
+    padding-top: 32px;
+    text-align: left;
 }
 
-/* ICON */
+   
+
+/* Kugghjulet (Ikonen) - Nu helt inuti och linjerad */
 .card-icon {
-    position: absolute;
-    top: -12px;
-    left: 16px;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
     background: var(--primary-color);
     color: var(--dark-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 20px;
+    margin-left: 32px;
+    margin-bottom: 20px;
 }
 
-/* TOP */
-.card-top h3 {
-    margin-top: 12px;
-    font-size: 14px;
+.card-top {
+    padding: 0 32px;
+    flex-grow: 1; /* Detta trycker ner den svarta boxen till botten */
 }
+
+    .card-top h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+        color: var(--dark-color);
+    }
 
 .features {
-    margin-top: 10px;
+    list-style: none;
+    padding: 0;
 }
 
     .features li {
-        position: relative;
-        padding-left: 16px;
-        font-size: 12px;
+        font-size: 13px;
         color: var(--grey-color);
-        margin-bottom: 6px;
+        margin-bottom: 8px;
+        padding-left: 20px;
+        position: relative;
     }
 
         .features li::before {
-            content: "";
-            width: 6px;
-            height: 6px;
-            background: var(--primary-color);
-            border-radius: 50%;
+            content: "✔"; /* Eller din runda prick */
             position: absolute;
             left: 0;
-            top: 7px;
+            color: var(--primary-color);
+            font-weight: bold;
         }
 
-/* BOTTOM BOX */
+/* --- Den Svarta Bottenboxen --- */
 .card-bottom {
-    margin-top: 16px;
-    padding: 14px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #171420 0%, #211d2d 100%);
+    background: #0D0B14;
+    padding: 24px 32px;
     color: white;
+    margin-top: 20px;
 }
-
 
 .price-row {
     display: flex;
@@ -951,82 +1031,123 @@ body {
     gap: 10px;
 }
 
-.price-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.price {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1;
-}
-
-/* BUTTON */
-.card-bottom .btn {
-    padding: 8px 16px;
-    font-size: 12px;
-}
-
-/* TRIAL TEXT */
-.trial {
-    margin-top: 8px;
-    font-size: 11px;
-    color: #bbb;
-}
-
-.membership-card {
-    background: var(--white-color);
-    padding: 20px;
-    border-radius: 16px;
-}
-
-    .membership-card h3 {
-        margin-bottom: 10px;
-    }
-
-    .membership-card ul {
-        margin: 12px 0;
-    }
-
-    .membership-card li {
-        font-size: 14px;
-        margin-bottom: 6px;
-    }
-
 .price {
     font-size: 22px;
-    font-weight: 700;
-    margin: 12px 0;
+    font-weight: 800;
 }
 
     .price span {
-        font-size: 14px;
-        color: var(--grey-color);
+        font-size: 12px;
+        color: #888;
     }
 
-.membership-card.highlight {
-    border: 2px solid var(--primary-color);
+.price-sub {
+    font-size: 11px;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-top: 4px;
 }
 
-.membership-cta {
-    background: var(--section-bg-dark);
-    color: var(--white-color);
-    padding: 24px;
-    border-radius: 16px;
+.trial {
+    margin-top: 15px;
+    font-size: 11px;
+    color: #888;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 12px;
 }
 
-    .membership-cta .phone {
-        margin: 12px 0;
-        font-weight: 600;
-    }
 
 .membership-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    color: var(--grey-color);
+    font-size: 13px;
     margin-top: 20px;
+}
+
+/* CTA Kortet  */
+.membership-cta {
+    background: #0D0B14;
+    color: var(--white-color);
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    font-size: 13px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative; 
+    min-height: 420px; 
+}
+
+/* Behållare för texten i CTA-kortet */
+.cta-content {
+    padding: 40px 32px;
+    text-align: left; 
+    width: 65%; 
+    position: relative;
+    z-index: 2; 
+}
+
+    .cta-content h3 {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    .cta-content .phone {
+        font-weight: 700;
+        margin: 15px 0;
+        color: var(--primary-color);
+    }
+
+
+.cta-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 180px; /* Här justerar du hur liten bilden ska vara */
+    line-height: 0;
+    z-index: 1; /* Ligger bakom text-innehållet */
+}
+
+    .cta-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain; /* Gör att hela bilden ryms utan att beskäras */
+    }
+
+/* Mobiljustering */
+@media (max-width: 768px) {
+    .membership-cta {
+        min-height: auto;
+    }
+
+    .cta-content {
+        width: 100%;
+        text-align: center;
+        padding: 30px 20px;
+    }
+
+    .cta-image {
+        position: relative; /* Flyttar ner bilden under texten på små skärmar */
+        width: 100%;
+        max-height: 200px;
+        margin-top: 0;
+    }
+}
+
+/* --- Mobilanpassning --- */
+@media (max-width: 768px) {
+    .membership-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-top, .card-bottom, .card-icon {
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-left: 20px;
+    }
 }
 /*FAQ*/
 .faq-section {
@@ -1328,22 +1449,7 @@ textarea {
     }
 }
 
-.nav-header {
-    background-color: var(--accent-color);
-    padding: 1.25rem;
-    font-size: 11px;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--gym-dark);
-}
 
-@media (min-width: 768px) {
-    .nav-header {
-        padding: 1.5rem;
-        font-size: 13px;
-    }
-}
 
 .nav-links {
     list-style: none;
@@ -2517,3 +2623,147 @@ textarea {
 }
 
 
+/* 404 Sida - Layout */
+.section__404 {
+    padding: 100px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh; /* Ger sidan höjd så den fyller ut skärmen */
+}
+
+.container--404 {
+    display: flex;
+    justify-content: center;
+}
+
+.error-content {
+    text-align: center;
+    max-width: 600px;
+}
+
+/* Bild-justering */
+.error-image img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+/* Text-styling */
+.error-content h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    font-family: var(--font-heading);
+}
+
+.error-content p {
+    color: var(--grey-color);
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+
+.error-actions {
+    margin-top: 20px;
+}
+
+/* =========================================
+   AKUT-FIX FÖR MENYN (Längst ner i filen!)
+   ========================================= */
+
+@media (max-width: 992px) {
+    /* Vi använder tre klasser för att vinna över all annan CSS */
+    body .section__header .nav-container.active {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        
+        /* Positionering */
+        position: absolute !important;
+        top: 72px !important; /* Justera denna om din header är högre/lägre */
+        left: 0 !important;
+        width: 100% !important;
+        min-height: 200px !important;
+        
+        /* Utseende */
+        background-color: #171420 !important;
+        flex-direction: column !important;
+        padding: 40px 20px !important;
+        z-index: 99999 !important;
+    }
+
+    /* Tvinga innehållet inuti att visas */
+    .nav-container.active .main-menu,
+    .nav-container.active .account-menu,
+    .nav-container.active ul.menu {
+        display: flex !important;
+        flex-direction: column !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Tvinga länkarna att synas */
+    .nav-container.active .menu-item a,
+    .nav-container.active .menu-item button,
+    .nav-container.active .menu-item-link {
+        color: #FFFFFF !important;
+        font-size: 20px !important;
+        padding: 15px 0 !important;
+        display: block !important;
+        text-align: center !important;
+    }
+}
+/* --- SLUTGILTIG FIX - INGET ANNAT SKA BEHÖVAS --- */
+
+/* --- SLUTGILTIG FIX - INGET ANNAT SKA BEHÖVAS --- */
+
+/* 1. Tvinga svart text på knappen (Desktop & Mobil) */
+.header-area .btn.accent,
+.nav-container .btn.accent,
+.nav-container .active .btn.accent {
+    color: #000000 !important;
+    font-weight: 900 !important;
+    background-color: #D6E831 !important;
+}
+
+/* 2. Mobil-specifika inställningar */
+@media (max-width: 992px) {
+    /* Fixar knappen utan att centrera ALLT annat */
+    .nav-container.active .btn.accent {
+        display: flex !important;
+        width: 220px !important;
+        height: 50px !important;
+        margin: 20px auto !important; /* Centrerar bara knappen inuti menyn */
+        justify-content: center !important;
+        align-items: center !important;
+        border-radius: 50px !important;
+    }
+
+    /* Tvingar hamburgarmenyn att ligga kvar till höger */
+    .menu-toggle {
+        margin-left: auto !important;
+        display: flex !important;
+    }
+}
+
+/* 1. Tvinga texten att bli svart oavsett vad */
+.section__header a.btn.accent,
+.section__header .nav-container .btn.accent,
+.section__header .btn.accent span,
+.section__header button.btn.accent {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important; /* Tvingar även Safari/Chrome */
+    font-weight: 900 !important;
+}
+
+/* 2. Se till att hamburgaren stannar till höger och inte hoppar */
+.header-area {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+.menu-toggle {
+    margin-left: auto !important;
+}
