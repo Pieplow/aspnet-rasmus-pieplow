@@ -782,7 +782,7 @@ body {
 }
 
 
-/* Membership Section (User Themed) */
+/* Membership Section  */
 .section__header {
     text-align: center;
     margin-bottom: 40px;
@@ -795,7 +795,7 @@ body {
 }
 
 .section__membership .container {
-    background: #EFEFEF;
+    background: transparent;
     border-radius: 12px;
     padding: 30px 15px;
 }

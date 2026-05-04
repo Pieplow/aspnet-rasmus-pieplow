@@ -11,7 +11,7 @@
             <nav class="main-menu">
                 <ul class="menu">
                     <li class="menu-item">
-                        <a asp-controller="Home" asp-action="Index" fragment="fitness-centers">Fitness Centers</a>
+                        <a asp-controller="Home" asp-action="NotFoundPage" fragment="fitness-centers">Fitness Centers</a>
                     </li>
                     <li class="menu-item">
                         <a asp-controller="Memberships" asp-action="Index">Memberships</a>
@@ -23,7 +23,7 @@
                         <a asp-controller="Booking" asp-action="Schedule" fragment="training">Training</a>
                     </li>
                     <li class="menu-item">
-                        <a asp-controller="Home" asp-action="Index" fragment="store">Store</a>
+                        <a asp-controller="Home" asp-action="NotFoundPage" fragment="store">Store</a>
                     </li>
                     @* VG-KRAV: Visa endast Admin för inloggade administratörer *@
                     @if (User.IsInRole("Admin"))

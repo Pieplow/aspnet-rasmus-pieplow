@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "404 - Sidan hittades inte";
+}
+
+<section class="section__404">
+    <div class="container container--404">
+        <div class="error-content">
+            <div class="error-image">
+                @* Använd tilde (~) för att ASP.NET ska hitta rätt sökväg till bilden *@
+                <img src="~/images/404-error-img 1.svg" alt="404">
+            </div>
+            
+            <h1>Oops! page not found</h1>
+            <p>The page you are looking for does not exists.</p>
+            
+            <div class="error-actions">
+                <a asp-controller="Home" asp-action="Index" class="btn accent">Back to Homepage ></a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -22,5 +22,12 @@ namespace Presentation.WebApp.Controllers
         {
             return View();
         }
+
+        [Route("notfound")]
+        public IActionResult NotFoundPage()
+        {
+            // Detta renderar Views/Shared/NotFoundPage.cshtml
+            return View();
+        }
     }
 }

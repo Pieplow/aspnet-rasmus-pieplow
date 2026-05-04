@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRouting(options =>
@@ -76,6 +78,7 @@ else
     app.UseHsts();
 }
 
+app.UseStatusCodePagesWithReExecute("/notfound");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
